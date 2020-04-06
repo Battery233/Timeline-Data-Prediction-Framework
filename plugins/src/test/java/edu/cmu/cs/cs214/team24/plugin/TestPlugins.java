@@ -1,7 +1,6 @@
 package edu.cmu.cs.cs214.team24.plugin;
 
 import edu.cmu.cs.cs214.team24.framework.core.DataPlugin;
-import edu.cmu.cs.cs214.team24.framework.core.FrameworkImpl;
 import edu.cmu.cs.cs214.team24.framework.core.PluginLoader;
 import org.junit.Test;
 
@@ -11,12 +10,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class TestPlugins {
-
-    @Test
-    public void testFrameWorkInit() {
-        FrameworkImpl framework = new FrameworkImpl();
-        assertEquals(1, framework.getDataPluginNumber());
-    }
 
     @Test
     public void testLoading() {
