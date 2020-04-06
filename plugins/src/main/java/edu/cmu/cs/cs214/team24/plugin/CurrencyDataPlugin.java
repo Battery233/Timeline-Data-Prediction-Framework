@@ -19,6 +19,7 @@ public class CurrencyDataPlugin implements DataPlugin {
     private static String ALL_CURRENCY = "CAD,HKD,ISK,PHP,DKK,HUF,CZK,GBP,RON,SEK,IDR,INR,BRL,RUB,HRK,JPY,THB,CHF,EUR,MYR,BGN,TRY,CNY,NOK,NZD,ZAR,USD,MXN,SGD,AUD,ILS,KRW,PLN";
     private static String API_URL = "https://api.exchangeratesapi.io/history?";
     private Map<String, List<String>> paramOptions = new HashMap<>();
+    private Map<String, Boolean> isParamsMultiple = new HashMap<>();
     private String startDate = "";
     private String endDate;
     private String base = "USD"; // default base
@@ -27,8 +28,16 @@ public class CurrencyDataPlugin implements DataPlugin {
     public CurrencyDataPlugin() {
         List<String> options = Arrays.asList(ALL_CURRENCY.split(","));
         paramOptions.put("base", options);
+        isParamsMultiple.put("base", false);
         paramOptions.put("symbols", options);
+        isParamsMultiple.put("symbols", true);
     }
+
+    @Override
+    public Map<String, Boolean> isParamsMultiple() {
+        return isParamsMultiple;
+    }
+
 
     @Override
     public String name() {
@@ -89,10 +98,8 @@ public class CurrencyDataPlugin implements DataPlugin {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             startDate = format.format(start.getTime());
             endDate = format.format(end.getTime());
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date bt = sdf.parse(startDate);
-            Date et = sdf.parse(endDate);
+            Date bt = format.parse(startDate);
+            Date et = format.parse(endDate);
             if (!bt.before(et)) {
                 throw new IllegalArgumentException("start date should be earlier than end date!");
             }
