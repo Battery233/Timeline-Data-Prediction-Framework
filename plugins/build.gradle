@@ -27,6 +27,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.6'
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.4'
     compile group: 'org.openjfx', name: 'javafx', version: '11', ext: 'pom'
+    compile group: 'org.openjfx', name: 'javafx-swing', version: '11-ea+24'
     compile project(':framework')
 }
 
