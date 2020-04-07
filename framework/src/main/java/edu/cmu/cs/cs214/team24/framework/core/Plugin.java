@@ -16,6 +16,4 @@ public interface Plugin {
 
     boolean addParam(String param, String option);
 
-    void onRegister(Framework framework);
-
 }
