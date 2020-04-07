@@ -8,8 +8,6 @@ public interface Plugin {
 
     boolean isDataPlugin();
 
-    boolean isDisplayPlugin();
-
     Map<String, List<String>> getParamOptions();
 
     Map<String, Boolean> areParamsMultiple();

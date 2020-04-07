@@ -9,8 +9,6 @@ import java.util.*;
 public class FrameworkImpl implements Framework {
     private DataPlugin currentDataPlugin;
     private DisplayPlugin currentDisplayPlugin;
-    private Map<String, List<String>> dataParamOptions;
-    private Map<String, List<String>> displayParamOptions;
     private DataSet dataset;
     private StatusChangeListener statusChangeListener;
 
