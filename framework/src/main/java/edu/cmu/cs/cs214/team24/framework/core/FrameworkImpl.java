@@ -21,7 +21,6 @@ public class FrameworkImpl implements Framework {
 
     @Override
     public void registerPlugin(Plugin plugin) {
-        plugin.onRegister(this);
         notifyPluginRegistered(plugin);
     }
 
