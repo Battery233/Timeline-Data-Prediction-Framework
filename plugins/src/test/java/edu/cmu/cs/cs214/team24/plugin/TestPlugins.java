@@ -39,7 +39,7 @@ public class TestPlugins {
         DataPlugin cdp = new CurrencyDataPlugin();
         framework.setCurrentDataPlugin(cdp);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date bt = format.parse("2020-03-13");
+        Date bt = format.parse("2020-02-13");
         Date et = format.parse("2020-03-17");
         Map<String, List<String>> params = new HashMap<>();
         List<String> list = new ArrayList<>();
@@ -58,7 +58,7 @@ public class TestPlugins {
     public void testAppleStock() throws ParseException {
         StockPriceDataPlugin stockPriceDataPlugin = new StockPriceDataPlugin();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date bt = format.parse("2020-02-05");
+        Date bt = format.parse("2020-02-13");
         Date et = format.parse("2020-03-17");
         stockPriceDataPlugin.setTimePeriod(bt, et);
         System.out.println(stockPriceDataPlugin.getData());
