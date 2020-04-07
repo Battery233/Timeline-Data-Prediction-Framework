@@ -26,7 +26,6 @@ public class CurrencyDataPlugin implements DataPlugin {
     private String endDate;
     private String base = "USD"; // default base
     private String symbols = "";
-    private Framework framework;
 
     public CurrencyDataPlugin() {
         List<String> options = Arrays.asList(ALL_CURRENCY.split(","));
@@ -44,7 +43,7 @@ public class CurrencyDataPlugin implements DataPlugin {
 
     @Override
     public String name() {
-        return "Currency Data plugin";
+        return "Currency Data plugin (JSON)";
     }
 
     @Override
