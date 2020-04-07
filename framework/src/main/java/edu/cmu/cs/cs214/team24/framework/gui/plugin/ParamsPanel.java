@@ -62,6 +62,7 @@ public class ParamsPanel extends JPanel {
                         Map<String, Boolean> paramsMultiple){
         removeAll();
         this.paramOptions = pOptions;
+        optionLists = new HashMap<>();
         if (!paramOptions.isEmpty() && !paramsMultiple.isEmpty()) {
             for (String param : paramOptions.keySet()) {
                 add(getParamPanel(param, paramOptions.get(param), paramsMultiple.get(param)));

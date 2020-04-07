@@ -60,6 +60,10 @@ public class MainPanel extends JPanel implements StatusChangeListener {
         displayPluginPanel.enableBrowsePanel();
     }
 
+    public void onDataPluginChanged() {
+        displayPluginPanel.disableBrowsePanel();
+    }
+
     public void onDisplayChanged(JPanel newDisplay){
         display.removeAll();
         display.add(newDisplay);

@@ -4,3 +4,4 @@
 edu.cmu.cs.cs214.team24.plugin.CurrencyDataPlugin
 edu.cmu.cs.cs214.team24.plugin.StatisticDisplayPlugin
 edu.cmu.cs.cs214.team24.plugin.StockPriceDataPlugin
+edu.cmu.cs.cs214.team24.plugin.LineChartDisplayPlugin
