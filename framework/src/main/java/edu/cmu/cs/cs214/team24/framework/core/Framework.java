@@ -17,6 +17,8 @@ public interface Framework {
 
     Map<String, List<String>> getParamOptions(boolean isDataPlugin);
 
+    Map<String, Boolean> getAreDataParamsMultiple(boolean isDataPlugin);
+
     boolean setPluginParameters(boolean isDataPlugin, Map<String, List<String>> params, Date startDate, Date endDate);
 
     DataSet getData();

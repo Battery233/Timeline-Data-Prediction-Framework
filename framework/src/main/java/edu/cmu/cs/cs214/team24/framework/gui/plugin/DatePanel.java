@@ -44,7 +44,7 @@ public class DatePanel extends JPanel {
         add(datePicker);
     }
 
-    public class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
+    public static class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
 
         private String datePattern = "yyyy-MM-dd";
         private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);

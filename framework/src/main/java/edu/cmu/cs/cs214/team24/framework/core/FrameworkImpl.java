@@ -2,6 +2,7 @@ package edu.cmu.cs.cs214.team24.framework.core;
 
 import javax.swing.JPanel;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +11,8 @@ public class FrameworkImpl implements Framework {
     private Plugin currentDisplayPlugin;
     private Map<String, List<String>> dataParamOptions;
     private Map<String, List<String>> displayParamOptions;
-    private Map<String, Boolean> isDataParamsMultiple;
-    private Map<String, Boolean> isDisplayParamsMultiple;
+    private Map<String, Boolean> areDataParamsMultiple;
+    private Map<String, Boolean> areDisplayParamsMultiple;
     private StatusChangeListener statusChangeListener;
 
     public FrameworkImpl() {
@@ -37,6 +38,12 @@ public class FrameworkImpl implements Framework {
     @Override
     public Map<String, List<String>> getParamOptions(boolean isDataPlugin) {
         return null;
+    }
+
+    @Override
+    public Map<String, Boolean> getAreDataParamsMultiple(boolean isDataPlugin) {
+        if (isDataPlugin) return new HashMap<>(areDataParamsMultiple);
+        else return new HashMap<>(areDisplayParamsMultiple);
     }
 
     @Override
