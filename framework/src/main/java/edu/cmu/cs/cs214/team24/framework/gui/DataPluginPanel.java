@@ -1,6 +1,7 @@
 package edu.cmu.cs.cs214.team24.framework.gui;
 
 import edu.cmu.cs.cs214.team24.framework.core.Framework;
+import edu.cmu.cs.cs214.team24.framework.core.Plugin;
 import edu.cmu.cs.cs214.team24.framework.gui.plugin.DatePanel;
 
 import java.util.*;
@@ -26,6 +27,15 @@ public class DataPluginPanel extends PluginPanel {
     public void onDateChosen(Date date, boolean isStart){
         if (isStart) startDate = date;
         else endDate = date;
+    }
+
+    @Override
+    public void onPluginChanged(Plugin plugin){
+        core.setCurrentDataPlugin(plugin);
+        statusLabel.setText("Data not ready, please configure data parameters and get data.");
+        parent.onDataPluginChanged();
+        retrieveParams();
+        refreshParams();
     }
 
 }

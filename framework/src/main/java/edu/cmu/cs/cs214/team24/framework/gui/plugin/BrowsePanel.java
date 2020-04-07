@@ -8,6 +8,7 @@ import edu.cmu.cs.cs214.team24.framework.gui.PluginPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Vector;
@@ -53,6 +54,14 @@ public class BrowsePanel extends JPanel {
         addComboBoxListener();
     }
 
+    public void disableSelection(){
+        System.out.println("disable here1");
+        setEnabled(false);
+        System.out.println("disable here2");
+        clearComboBoxListener();
+        System.out.println("disable here3");
+    }
+
     public void onPluginRegistered(Plugin plugin) {
         if (plugin.isDataPlugin() == isDataPlugin) model.addElement(plugin);
     }
@@ -62,5 +71,11 @@ public class BrowsePanel extends JPanel {
             Plugin selected = (Plugin) comboBox.getSelectedItem();
             parent.onPluginChanged(selected);
         });
+    }
+
+    private void clearComboBoxListener(){
+        for(ActionListener al : comboBox.getActionListeners() ) {
+            comboBox.removeActionListener( al );
+        }
     }
 }

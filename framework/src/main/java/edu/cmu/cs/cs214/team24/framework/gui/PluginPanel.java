@@ -16,19 +16,20 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
 public class PluginPanel extends JPanel {
 
-    private MainPanel parent;
+    protected MainPanel parent;
     protected Framework core;
     protected BrowsePanel browsePanel;
     protected ParamsPanel paramsPanel;
     protected JLabel statusLabel;
-    private boolean isDataPlugin, browseEnabled;
+    protected boolean isDataPlugin;
     protected Date startDate, endDate;
+    protected Map<String, List<String>> paramOptions = new HashMap<>();
+    protected Map<String, Boolean> paramsMultiple = new HashMap<>();
 
     public PluginPanel(MainPanel parent, Framework framework, boolean isDataPlugin) {
         this.parent = parent;
         core = framework;
         this.isDataPlugin = isDataPlugin;
-        browseEnabled = isDataPlugin;
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
     }
 
@@ -91,19 +92,23 @@ public class PluginPanel extends JPanel {
     }
 
     public void onPluginChanged(Plugin plugin){
-        if (isDataPlugin) core.setCurrentDataPlugin(plugin);
-        else core.setCurrentDisplayPlugin(plugin);
-        if (!browseEnabled){
-            core.setDisplayPluginOptions();
-            browseEnabled = true;
-        }
-        Map<String, List<String>> paramOptions = core.getParamOptions(isDataPlugin);
-        Map<String, Boolean> paramsMultiple = core.getAreDataParamsMultiple(isDataPlugin);
-        paramsPanel.refresh(paramOptions, paramsMultiple);
     }
 
     public void enableBrowsePanel(){
     }
 
+    public void disableBrowsePanel(){
+    }
+
+    protected void retrieveParams(){
+        paramOptions = core.getParamOptions(isDataPlugin);
+        paramsMultiple = core.getAreDataParamsMultiple(isDataPlugin);
+    }
+
+    protected void refreshParams(){
+        paramsPanel.refresh(paramOptions, paramsMultiple);
+        revalidate();
+        repaint();
+    }
 
 }
