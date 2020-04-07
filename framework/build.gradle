@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'jacoco'
 apply plugin: 'application'
 
-mainClassName = "edu.cmu.cs.cs214.team24.framework.core.Framework"
+mainClassName = "edu.cmu.cs.cs214.team24.Main"
 
 test.testLogging {
     exceptionFormat "full"

@@ -1,3 +1,5 @@
+package edu.cmu.cs.cs214.team24;
+
 import edu.cmu.cs.cs214.team24.framework.core.*;
 import edu.cmu.cs.cs214.team24.framework.gui.MainPanel;
 
