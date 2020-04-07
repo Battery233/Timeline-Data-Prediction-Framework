@@ -110,17 +110,12 @@ public class StockPriceDataPlugin implements DataPlugin {
     }
 
     @Override
-    public boolean isDisplayPlugin() {
-        return false;
-    }
-
-    @Override
     public Map<String, List<String>> getParamOptions() {
         return null;
     }
 
     @Override
-    public Map<String, Boolean> isParamsMultiple() {
+    public Map<String, Boolean> areParamsMultiple() {
         return null;
     }
 
