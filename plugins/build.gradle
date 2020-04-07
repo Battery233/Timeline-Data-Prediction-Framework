@@ -26,6 +26,7 @@ dependencies {
     compile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.8.6'
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.4'
+    compile group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.5.1' 
     compile project(':framework')
 }
 
