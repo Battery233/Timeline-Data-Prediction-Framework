@@ -75,9 +75,13 @@ public class FrameworkImpl implements Framework {
             return false;
         } else {
             dataset = data;
-            currentDisplayPlugin.setOptions(dataset.getData().keySet());
             return true;
         }
+    }
+
+    @Override
+    public void setDisplayPluginOptions() {
+        currentDisplayPlugin.setDataSet(dataset);
     }
 
     @Override

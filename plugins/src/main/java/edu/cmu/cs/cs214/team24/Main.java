@@ -4,6 +4,7 @@ import edu.cmu.cs.cs214.team24.framework.core.*;
 import edu.cmu.cs.cs214.team24.framework.gui.MainPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -28,8 +29,9 @@ public class Main {
         JFrame frame = new JFrame("Timeline Data Prediction Framework");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(mainPanel);
+        frame.setPreferredSize(new Dimension(1000, 1000));
         frame.pack();
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setVisible(true);
     }
 

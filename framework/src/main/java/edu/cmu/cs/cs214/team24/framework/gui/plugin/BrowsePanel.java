@@ -43,23 +43,24 @@ public class BrowsePanel extends JPanel {
             }
         });
         if (isDataPlugin) {
-            comboBox.addActionListener(e -> {
-                Plugin selected = (Plugin) comboBox.getSelectedItem();
-                parent.onPluginChanged(selected);
-            });
+            addComboBoxListener();
         }
         add(comboBox);
     }
 
     public void enableSelection(){
         setEnabled(true);
-        comboBox.addActionListener(e -> {
-            Plugin selected = (Plugin) comboBox.getSelectedItem();
-            parent.onPluginChanged(selected);
-        });
+        addComboBoxListener();
     }
 
     public void onPluginRegistered(Plugin plugin) {
         if (plugin.isDataPlugin() == isDataPlugin) model.addElement(plugin);
+    }
+
+    private void addComboBoxListener(){
+        comboBox.addActionListener(e -> {
+            Plugin selected = (Plugin) comboBox.getSelectedItem();
+            parent.onPluginChanged(selected);
+        });
     }
 }

@@ -7,11 +7,15 @@ import edu.cmu.cs.cs214.team24.framework.core.Plugin;
 import javax.swing.*;
 import java.awt.*;
 
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
+
 public class MainPanel extends JPanel implements StatusChangeListener {
 
     private Framework core;
     private PluginPanel dataPluginPanel, displayPluginPanel;
     private JPanel display = new JPanel();
+    private JScrollPane scroll;
     private JPanel pluginPanel = new JPanel();
 
     public MainPanel(Framework framework) {
@@ -25,9 +29,15 @@ public class MainPanel extends JPanel implements StatusChangeListener {
         getTitlePanel(false);
         pluginPanel.add(displayPluginPanel);
 
+        JScrollPane rightScroll = new JScrollPane(pluginPanel);
+        rightScroll.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
         setLayout(new BorderLayout());
-        add(pluginPanel, BorderLayout.EAST);
-        add(display, BorderLayout.CENTER);
+        add(rightScroll, BorderLayout.EAST);
+
+        scroll = new JScrollPane(display);
+        scroll.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
+        add(scroll, BorderLayout.CENTER);
     }
 
     private void getTitlePanel(boolean isDataPlugin){
@@ -52,8 +62,8 @@ public class MainPanel extends JPanel implements StatusChangeListener {
 
     public void onDisplayChanged(JPanel newDisplay){
         display.removeAll();
-        display = newDisplay;
-        display.revalidate();
-        display.repaint();
+        display.add(newDisplay);
+        scroll.revalidate();
+        scroll.repaint();
     }
 }

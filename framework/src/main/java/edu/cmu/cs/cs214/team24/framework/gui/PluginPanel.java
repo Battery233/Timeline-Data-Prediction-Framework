@@ -21,13 +21,14 @@ public class PluginPanel extends JPanel {
     protected BrowsePanel browsePanel;
     protected ParamsPanel paramsPanel;
     protected JLabel statusLabel;
-    private boolean isDataPlugin;
+    private boolean isDataPlugin, browseEnabled;
     protected Date startDate, endDate;
 
     public PluginPanel(MainPanel parent, Framework framework, boolean isDataPlugin) {
         this.parent = parent;
         core = framework;
         this.isDataPlugin = isDataPlugin;
+        browseEnabled = isDataPlugin;
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
     }
 
@@ -92,6 +93,10 @@ public class PluginPanel extends JPanel {
     public void onPluginChanged(Plugin plugin){
         if (isDataPlugin) core.setCurrentDataPlugin(plugin);
         else core.setCurrentDisplayPlugin(plugin);
+        if (!browseEnabled){
+            core.setDisplayPluginOptions();
+            browseEnabled = true;
+        }
         Map<String, List<String>> paramOptions = core.getParamOptions(isDataPlugin);
         Map<String, Boolean> paramsMultiple = core.getAreDataParamsMultiple(isDataPlugin);
         paramsPanel.refresh(paramOptions, paramsMultiple);
@@ -99,5 +104,6 @@ public class PluginPanel extends JPanel {
 
     public void enableBrowsePanel(){
     }
+
 
 }

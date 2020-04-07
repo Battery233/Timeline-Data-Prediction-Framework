@@ -5,7 +5,7 @@ import java.util.Set;
 
 public interface DisplayPlugin extends Plugin{
 
-    void setOptions(Set<String> options);
+    void setDataSet(DataSet metaData);
 
     void setDisplayDataSet(DisplayDataSet data);
 
