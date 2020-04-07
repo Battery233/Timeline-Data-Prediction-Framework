@@ -9,10 +9,6 @@ import java.util.*;
 public class FrameworkImpl implements Framework {
     private DataPlugin currentDataPlugin;
     private DisplayPlugin currentDisplayPlugin;
-    private Map<String, List<String>> dataParamOptions;
-    private Map<String, List<String>> displayParamOptions;
-    private Map<String, Boolean> areDataParamsMultiple;
-    private Map<String, Boolean> areDisplayParamsMultiple;
     private DataSet dataset;
     private StatusChangeListener statusChangeListener;
 
@@ -46,8 +42,8 @@ public class FrameworkImpl implements Framework {
 
     @Override
     public Map<String, Boolean> getAreDataParamsMultiple(boolean isDataPlugin) {
-        if (isDataPlugin) return new HashMap<>(areDataParamsMultiple);
-        else return new HashMap<>(areDisplayParamsMultiple);
+        if (isDataPlugin) return currentDataPlugin.areParamsMultiple();
+        else return currentDisplayPlugin.areParamsMultiple();
     }
 
     @Override

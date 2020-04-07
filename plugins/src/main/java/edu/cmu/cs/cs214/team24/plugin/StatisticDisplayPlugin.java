@@ -14,14 +14,18 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
 
     private String option1;
     private String option2;
-    private final DisplayDataSet data;
-    private final Set<String> options;
+    private DisplayDataSet data;
+    private Set<String> options;
     private TTest testEnvir;
 
-    public StatisticDisplayPlugin(DisplayDataSet data) {
+    public StatisticDisplayPlugin() {
+        testEnvir = new TTest();
+    }
+
+    @Override
+    public void setDisplayDataSet(DisplayDataSet data){
         this.data = data;
         options = data.getOriginalData().getData().keySet();
-        testEnvir = new TTest();
     }
 
     @Override
@@ -72,17 +76,12 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
 
     @Override
     public String name() {
-        return "StatisticDisplay";
+        return "Statistic Display Plugin";
     }
 
     @Override
     public boolean isDataPlugin() {
         return false;
-    }
-
-    @Override
-    public boolean isDisplayPlugin() {
-        return true;
     }
 
     @Override
@@ -95,7 +94,7 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
     }
 
     @Override
-    public Map<String, Boolean> isParamsMultiple() {
+    public Map<String, Boolean> areParamsMultiple() {
         Map<String, Boolean> map = new HashMap<>();
         map.put("option1", false);
         map.put("option2", false);
