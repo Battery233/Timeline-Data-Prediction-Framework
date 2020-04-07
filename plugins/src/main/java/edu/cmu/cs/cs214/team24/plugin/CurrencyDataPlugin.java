@@ -9,6 +9,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -135,11 +136,14 @@ public class CurrencyDataPlugin implements DataPlugin {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date start = format.parse(JSONData.start_at);
         Date end = format.parse(JSONData.end_at);
+        int days = (int) ((Math.round((double) (end.getTime() - start.getTime()) / SECONDS_PER_DAY)) + 1);
 
-        int days = (int) ((end.getTime() - start.getTime()) / SECONDS_PER_DAY + 1);
         Date[] dates = new Date[days];
+        Calendar calendar = Calendar.getInstance();
         for (int i = 0; i < days; i++) {
-            dates[i] = new Date(start.getTime() + i * SECONDS_PER_DAY);
+            calendar.setTime(start);
+            calendar.add(Calendar.DATE, i);
+            dates[i] = calendar.getTime();
         }
 
         Map<String, double[]> data = new HashMap<>();
@@ -152,7 +156,7 @@ public class CurrencyDataPlugin implements DataPlugin {
 
         for (Map.Entry<String, Map<String, Double>> jsr : JSONData.rates.entrySet()) {
             Date date = format.parse(jsr.getKey());
-            int i = 0;
+            int i;
             for (i = 0; i < dates.length; i++) {
                 if (date.equals(dates[i])) {
                     break;
