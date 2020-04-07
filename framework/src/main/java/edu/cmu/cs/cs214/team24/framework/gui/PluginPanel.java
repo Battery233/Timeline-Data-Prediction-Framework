@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
+
 public class PluginPanel extends JPanel {
 
     private MainPanel parent;
@@ -28,11 +31,13 @@ public class PluginPanel extends JPanel {
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
     }
 
-    protected void addStatusLabel(){
-        String statusText = "Data not ready, please get data.";
-        if (!isDataPlugin) statusText = "Please configure display parameters if there is any.";
+    protected void addStatusPanel(){
+        String statusText = "Data not ready, please configure data parameters and get data.";
+        if (!isDataPlugin) statusText = "Please configure display parameters and display.";
         statusLabel = new JLabel(statusText);
-        add(statusLabel);
+        JPanel statusPanel = new JPanel();
+        statusPanel.add(statusLabel);
+        add(statusPanel);
     }
 
     protected void addBrowsePanel(){
@@ -42,10 +47,13 @@ public class PluginPanel extends JPanel {
 
     protected void addParamsPanel(){
         paramsPanel = new ParamsPanel();
-        add(paramsPanel);
+        JScrollPane scroll = new JScrollPane(paramsPanel);
+        scroll.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
+        paramsPanel.setScrollPane(scroll);
+        add(scroll);
     }
 
-    protected void addButton(){
+    protected void addButtonPanel(){
         String buttonText = "Get Data";
         if (!isDataPlugin) buttonText = "Display";
         JButton b = new JButton(buttonText);
@@ -61,6 +69,7 @@ public class PluginPanel extends JPanel {
                     boolean getDataSuccess = core.getData();
                     if (getDataSuccess) {
                         statusLabel.setText("Data ready. Proceed to display data.");
+                        parent.onGetDataSuccess();
                     } else {
                         statusLabel.setText("Get data failed. Please modify your configuration.");
                     }
@@ -71,7 +80,9 @@ public class PluginPanel extends JPanel {
                 }
             }
         });
-        add(b);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(b);
+        add(buttonPanel);
     }
 
     public void onPluginRegistered(Plugin plugin) {
@@ -84,6 +95,9 @@ public class PluginPanel extends JPanel {
         Map<String, List<String>> paramOptions = core.getParamOptions(isDataPlugin);
         Map<String, Boolean> paramsMultiple = core.getAreDataParamsMultiple(isDataPlugin);
         paramsPanel.refresh(paramOptions, paramsMultiple);
+    }
+
+    public void enableBrowsePanel(){
     }
 
 }

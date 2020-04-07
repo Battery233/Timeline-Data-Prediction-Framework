@@ -23,9 +23,14 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
     }
 
     @Override
+    public void setOptions(Set<String> options){
+        this.options = options;
+    }
+
+    @Override
     public void setDisplayDataSet(DisplayDataSet data){
         this.data = data;
-        options = data.getOriginalData().getData().keySet();
+//        options = data.getOriginalData().getData().keySet();
     }
 
     @Override

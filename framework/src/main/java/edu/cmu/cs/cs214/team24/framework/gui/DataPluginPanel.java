@@ -1,25 +1,19 @@
 package edu.cmu.cs.cs214.team24.framework.gui;
 
 import edu.cmu.cs.cs214.team24.framework.core.Framework;
-import edu.cmu.cs.cs214.team24.framework.core.Plugin;
-import edu.cmu.cs.cs214.team24.framework.gui.plugin.BrowsePanel;
 import edu.cmu.cs.cs214.team24.framework.gui.plugin.DatePanel;
-import edu.cmu.cs.cs214.team24.framework.gui.plugin.ParamsPanel;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class DataPluginPanel extends PluginPanel {
 
     public DataPluginPanel(MainPanel parent, Framework framework){
         super(parent, framework, true);
-        addStatusLabel();
+        addStatusPanel();
         addBrowsePanel();
         addDatePanels();
         addParamsPanel();
-        addButton();
+        addButtonPanel();
     }
 
     private void addDatePanels(){
