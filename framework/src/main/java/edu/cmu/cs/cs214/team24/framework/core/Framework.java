@@ -9,7 +9,7 @@ public interface Framework {
 
     void registerPlugin(Plugin plugin);
 
-    void setGameChangeListener(GameChangeListener listener);
+    void setStatusChangeListener(StatusChangeListener listener);
 
     void setCurrentDataPlugin(Plugin plugin);
 

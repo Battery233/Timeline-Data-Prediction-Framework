@@ -14,7 +14,7 @@ public class Main {
     private static void createAndStartFramework() {
         Framework core = new FrameworkImpl();
         MainPanel mainPanel = new MainPanel(core);
-        core.setGameChangeListener(mainPanel);
+        core.setStatusChangeListener(mainPanel);
 
         List<Plugin> plugins;
         plugins = loadPlugins(true);
@@ -22,7 +22,7 @@ public class Main {
         plugins = loadPlugins(false);
         plugins.forEach(core::registerPlugin);
 
-        JFrame frame = new JFrame("Start Carcassonne game");
+        JFrame frame = new JFrame("Timeline Data Prediction Framework");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(mainPanel);
         frame.pack();

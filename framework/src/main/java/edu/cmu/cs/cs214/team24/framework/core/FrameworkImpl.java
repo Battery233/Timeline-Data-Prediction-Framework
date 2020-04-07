@@ -12,7 +12,7 @@ public class FrameworkImpl implements Framework {
     private Map<String, List<String>> displayParamOptions;
     private Map<String, Boolean> isDataParamsMultiple;
     private Map<String, Boolean> isDisplayParamsMultiple;
-    private GameChangeListener gameChangeListener;
+    private StatusChangeListener statusChangeListener;
 
     public FrameworkImpl() {
     }
@@ -55,11 +55,11 @@ public class FrameworkImpl implements Framework {
     }
 
     @Override
-    public void setGameChangeListener(GameChangeListener listener) {
-        gameChangeListener = listener;
+    public void setStatusChangeListener(StatusChangeListener listener) {
+        statusChangeListener = listener;
     }
 
     private void notifyPluginRegistered(Plugin plugin) {
-        gameChangeListener.onPluginRegistered(plugin);
+        statusChangeListener.onPluginRegistered(plugin);
     }
 }
