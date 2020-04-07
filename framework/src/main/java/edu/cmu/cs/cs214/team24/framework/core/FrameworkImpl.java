@@ -6,47 +6,74 @@ import java.util.List;
 import java.util.Map;
 
 public class FrameworkImpl implements Framework {
-    private Plugin currentDataPlugin;
-    private Plugin currentDisplayPlugin;
+    private DataPlugin currentDataPlugin;
+    private DisplayPlugin currentDisplayPlugin;
     private Map<String, List<String>> dataParamOptions;
     private Map<String, List<String>> displayParamOptions;
     private Map<String, Boolean> isDataParamsMultiple;
     private Map<String, Boolean> isDisplayParamsMultiple;
+    private DataSet dataset;
     private GameChangeListener gameChangeListener;
 
     public FrameworkImpl() {
     }
 
     @Override
-    public void registerPlugin(Plugin plugin){
+    public void registerPlugin(Plugin plugin) {
         plugin.onRegister(this);
         notifyPluginRegistered(plugin);
     }
 
     @Override
     public void setCurrentDataPlugin(Plugin plugin) {
-        currentDataPlugin = plugin;
+        currentDataPlugin = (DataPlugin) plugin;
     }
 
     @Override
     public void setCurrentDisplayPlugin(Plugin plugin) {
-        currentDisplayPlugin = plugin;
+        currentDisplayPlugin = (DisplayPlugin) plugin;
     }
 
 
     @Override
     public Map<String, List<String>> getParamOptions(boolean isDataPlugin) {
-        return null;
+        if (isDataPlugin) {
+            return currentDataPlugin.getParamOptions();
+        } else {
+            return currentDisplayPlugin.getParamOptions();
+        }
     }
 
     @Override
     public boolean setPluginParameters(boolean isDataPlugin, Map<String, List<String>> params, Date startDate, Date endDate) {
-        return false;
+        Plugin plugin;
+        if (isDataPlugin) {
+            currentDataPlugin.setTimePeriod(startDate, endDate);
+            plugin = currentDataPlugin;
+        } else {
+            plugin = currentDisplayPlugin;
+        }
+
+        for (Map.Entry<String, List<String>> e : params.entrySet()) {
+            for (String s : e.getValue()) {
+                if (!plugin.addParam(e.getKey(), s)) {
+                    System.out.println("Set param failed! Param = " + e.getKey() + ", value = " + s);
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
-    public DataSet getData() {
-        return null;
+    public boolean getData() {
+        DataSet data = currentDataPlugin.getData();
+        if (data == null) {
+            return false;
+        } else {
+            dataset = data;
+            return true;
+        }
     }
 
     @Override
