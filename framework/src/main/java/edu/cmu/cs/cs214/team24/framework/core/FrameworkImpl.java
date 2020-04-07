@@ -19,7 +19,6 @@ public class FrameworkImpl implements Framework {
 
     @Override
     public void registerPlugin(Plugin plugin) {
-        plugin.onRegister(this);
         notifyPluginRegistered(plugin);
     }
 
@@ -91,26 +90,21 @@ public class FrameworkImpl implements Framework {
         statusChangeListener = listener;
     }
 
-    public Map<String, List<Double>> predict(DataSet data, int n, int degree) {
+    public Map<String, Double> predict(DataSet data, int degree) {
         WeightedObservedPoints points = new WeightedObservedPoints();
         Map<String, double[]> map = data.getData();
-        Map<String, List<Double>> res = new HashMap<>();
+        Map<String, Double> res = new HashMap<>();
         for (Map.Entry<String, double[]> entry : map.entrySet()) {
             String key = entry.getKey();
             double[] cur = entry.getValue();
             int size = cur.length;
-            List<Double> list = new ArrayList<>();
             for (int i = 0; i < cur.length; i++) {
-                list.add(cur[i]);
                 points.add(i + 1, cur[i]);
             }
             PolynomialCurveFitter fitter = PolynomialCurveFitter.create(degree);
             double[] result = fitter.fit(points.toList());
-            for (int i = 0; i < n; i++) {
-                double predictions = calculate(result, size + i + 1);
-                list.add(predictions);
-            }
-            res.put(key, list);
+            double predictions = calculate(result, size + 1);
+            res.put(key, predictions);
         }
         return res;
     }

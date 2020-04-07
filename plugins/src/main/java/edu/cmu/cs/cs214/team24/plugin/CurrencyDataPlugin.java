@@ -86,11 +86,6 @@ public class CurrencyDataPlugin implements DataPlugin {
         }
     }
 
-    @Override
-    public void onRegister(Framework framework) {
-        this.framework = framework;
-    }
-
     private boolean validSymbol(String symbol) {
         for (String s : ALL_CURRENCY.split(",")) {
             if (s.equals(symbol)) {

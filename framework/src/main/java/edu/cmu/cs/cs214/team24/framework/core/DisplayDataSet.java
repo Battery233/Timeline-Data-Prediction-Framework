@@ -1,34 +1,32 @@
 package edu.cmu.cs.cs214.team24.framework.core;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class DisplayDataSet {
-    private final Date[] timeRange;
-    private final Date[] timeRangeForPrediction;
-    private final Map<String, double[]> data;
-    private final Map<String, double[]> dataPredicted;
+//    private final Date[] timeRange;
+//    private final Map<String, List<Double>> data;
 
-    public DisplayDataSet(Date[] timeRange, Map<String, double[]> data, Date[] timeRangeForPrediction, Map<String, double[]> dataPredicted) {
-        this.timeRange = timeRange;
-        this.data = data;
-        this.timeRangeForPrediction = timeRangeForPrediction;
-        this.dataPredicted = dataPredicted;
+    private DataSet originalData;
+    private Date predictionDate;
+    private Map<String,Double> predictionValue;
+
+    public DisplayDataSet(DataSet originalData, Date predictionDate, Map<String,Double> predictionValue) {
+        this.originalData = originalData;
+        this.predictionDate = predictionDate;
+        this.predictionValue = predictionValue;
     }
 
-    public Date[] getTimeRangeForPrediction() {
-        return timeRangeForPrediction;
+    public DataSet getOriginalData() {
+        return originalData;
     }
 
-    public Map<String, double[]> getDataPredicted() {
-        return dataPredicted;
+    public Date getPredictionDate() {
+        return predictionDate;
     }
 
-    public Date[] getTimeRange() {
-        return timeRange;
-    }
-
-    public Map<String, double[]> getData() {
-        return data;
+    public Map<String, Double> getPredictionValue() {
+        return predictionValue;
     }
 }
