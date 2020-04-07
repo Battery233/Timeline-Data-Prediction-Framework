@@ -1,7 +1,5 @@
 package edu.cmu.cs.cs214.team24.framework.gui.plugin;
 
-import edu.cmu.cs.cs214.team24.framework.core.Framework;
-import edu.cmu.cs.cs214.team24.framework.core.Plugin;
 import edu.cmu.cs.cs214.team24.framework.gui.DataPluginPanel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;

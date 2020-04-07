@@ -3,7 +3,6 @@ package edu.cmu.cs.cs214.team24.plugin;
 import com.google.gson.Gson;
 import edu.cmu.cs.cs214.team24.framework.core.DataPlugin;
 import edu.cmu.cs.cs214.team24.framework.core.DataSet;
-import edu.cmu.cs.cs214.team24.framework.core.Framework;
 
 import java.io.IOException;
 import java.net.URL;
@@ -151,19 +150,17 @@ public class CurrencyDataPlugin implements DataPlugin {
             break;
         }
 
-        int i = 0;
         for (Map.Entry<String, Map<String, Double>> jsr : JSONData.rates.entrySet()) {
             Date date = format.parse(jsr.getKey());
-            if (i == dates.length) break;
-            while (!dates[i].equals(date)) {
-                i++;
-            }
-            if (dates[i].equals(date)) {
-                for (Map.Entry<String, Double> e : jsr.getValue().entrySet()) {
-                    data.get(e.getKey())[i] = e.getValue();
+            int i = 0;
+            for (i = 0; i < dates.length; i++) {
+                if (date.equals(dates[i])) {
+                    break;
                 }
             }
-            i++;
+            for (Map.Entry<String, Double> e : jsr.getValue().entrySet()) {
+                data.get(e.getKey())[i] = e.getValue();
+            }
         }
 
         for (double[] d : data.values()) {

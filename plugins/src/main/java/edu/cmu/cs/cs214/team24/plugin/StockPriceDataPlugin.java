@@ -46,7 +46,7 @@ public class StockPriceDataPlugin implements DataPlugin {
             int days = (int) ((end.getTime() - start.getTime()) / 86400000 + 1);
             Date[] dates = new Date[days];
             for (int i = 0; i < days; i++) {
-                dates[i] = new Date(start.getTime() + i * 86400000);
+                dates[i] = new Date(start.getTime() + i * 86400000L);
             }
 
             Map<String, double[]> data = new HashMap<>();
@@ -67,13 +67,16 @@ public class StockPriceDataPlugin implements DataPlugin {
                 Date date;
                 try {
                     date = format.parse(details[0]);
-                    while (!date.equals(dates[i])) {
+                    while (i != dates.length && !date.equals(dates[i])) {
                         i++;
                     }
-                    data.get("open")[i]  = Double.parseDouble(details[1]);
-                    data.get("high")[i]  = Double.parseDouble(details[2]);
-                    data.get("low")[i]  = Double.parseDouble(details[3]);
-                    data.get("close")[i]  = Double.parseDouble(details[4]);
+                    if (i == dates.length) {
+                        break;
+                    }
+                    data.get("open")[i] = Double.parseDouble(details[1]);
+                    data.get("high")[i] = Double.parseDouble(details[2]);
+                    data.get("low")[i] = Double.parseDouble(details[3]);
+                    data.get("close")[i] = Double.parseDouble(details[4]);
                 } catch (ParseException e) {
                     break;
                 }
@@ -83,9 +86,9 @@ public class StockPriceDataPlugin implements DataPlugin {
             for (double[] d : data.values()) {
                 for (int j = 0; j < d.length; j++) {
                     if (d[j] == 0) {
-                        if (j == 0 && d.length> 1 && d[j + 1] != 0) {
+                        if (j == 0 && d.length > 1 && d[j + 1] != 0) {
                             d[j] = d[j + 1];
-                        } else if (j == 0 && d.length> 2) {
+                        } else if (j == 0 && d.length > 2) {
                             d[j] = d[j + 2];
                         } else if (j > 0 && d[j - 1] != 0) {
                             d[j] = d[j - 1];
@@ -93,7 +96,7 @@ public class StockPriceDataPlugin implements DataPlugin {
                     }
                 }
             }
-            return new DataSet(dates,data);
+            return new DataSet(dates, data);
         } catch (IOException | ParseException e) {
             return null;
         }
