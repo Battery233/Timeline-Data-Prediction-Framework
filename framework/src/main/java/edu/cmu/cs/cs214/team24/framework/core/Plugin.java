@@ -12,7 +12,7 @@ public interface Plugin {
 
     Map<String, List<String>> getParamOptions();
 
-    Map<String, Boolean> isParamsMultiple();
+    Map<String, Boolean> areParamsMultiple();
 
     boolean addParam(String param, String option);
 

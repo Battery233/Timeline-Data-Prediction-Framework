@@ -4,6 +4,7 @@ package edu.cmu.cs.cs214.team24.framework.gui.plugin;
 import edu.cmu.cs.cs214.team24.framework.core.Framework;
 import edu.cmu.cs.cs214.team24.framework.core.Plugin;
 import edu.cmu.cs.cs214.team24.framework.gui.DataPluginPanel;
+import edu.cmu.cs.cs214.team24.framework.gui.PluginPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,19 +12,18 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Vector;
 
-public class BrowsePanel extends JPanel implements ItemListener {
+public class BrowsePanel extends JPanel {
 
-    private DataPluginPanel parent;
-    private boolean isDataPlugin;
-    private final JLabel browseLabel;
     private final DefaultComboBoxModel<Plugin> model = new DefaultComboBoxModel<>(new Vector<>());
+    private boolean isDataPlugin;
 
-    public BrowsePanel(DataPluginPanel parent, boolean isDataPlugin) {
-        this.parent = parent;
+    public BrowsePanel(PluginPanel parent, boolean isDataPlugin) {
         this.isDataPlugin = isDataPlugin;
 
         setLayout(new GridLayout(2, 1));
-        browseLabel = new JLabel("Select a data plugin.");
+        String pluginName = "data";
+        if (!isDataPlugin) pluginName = "display";
+        JLabel browseLabel = new JLabel("Select a " + pluginName + " plugin.");
         add(browseLabel);
 
         JComboBox<Plugin> comboBox = new JComboBox<>(model);
@@ -47,11 +47,6 @@ public class BrowsePanel extends JPanel implements ItemListener {
     }
 
     public void onPluginRegistered(Plugin plugin) {
-        model.addElement(plugin);
-    }
-
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-
+        if (plugin.isDataPlugin() == isDataPlugin) model.addElement(plugin);
     }
 }

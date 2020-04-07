@@ -37,7 +37,7 @@ public class CurrencyDataPlugin implements DataPlugin {
     }
 
     @Override
-    public Map<String, Boolean> isParamsMultiple() {
+    public Map<String, Boolean> areParamsMultiple() {
         return isParamsMultiple;
     }
 

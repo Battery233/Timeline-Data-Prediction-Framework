@@ -13,12 +13,10 @@ import java.util.List;
 
 public class ParamsPanel extends JPanel {
 
-    private DataPluginPanel parent;
     private Map<String, JList<String>> optionLists = new HashMap<>();
     private Map<String, List<String>> paramOptions = new HashMap<>();
 
-    public ParamsPanel(DataPluginPanel parent){
-        this.parent = parent;
+    public ParamsPanel(){
         setLayout(new FlowLayout());
     }
 

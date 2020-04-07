@@ -5,7 +5,6 @@ import edu.cmu.cs.cs214.team24.framework.core.StatusChangeListener;
 import edu.cmu.cs.cs214.team24.framework.core.Plugin;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MainPanel extends JPanel implements StatusChangeListener {
 
@@ -18,8 +17,9 @@ public class MainPanel extends JPanel implements StatusChangeListener {
         dataPluginPanel = new DataPluginPanel(core);
         displayPluginPanel = new DisplayPluginPanel(core);
 
-        setLayout(new GridLayout(1, 1));
+        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         add(dataPluginPanel);
+        add(displayPluginPanel);
     }
 
     @Override
