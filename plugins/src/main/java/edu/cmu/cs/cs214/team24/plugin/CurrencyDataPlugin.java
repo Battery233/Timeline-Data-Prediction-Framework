@@ -165,6 +165,7 @@ public class CurrencyDataPlugin implements DataPlugin {
         int i = 0;
         for (Map.Entry<String, Map<String, Double>> jsr : JSONData.rates.entrySet()) {
             Date date = format.parse(jsr.getKey());
+            if (i == dates.length) break;
             while (!dates[i].equals(date)) {
                 i++;
             }

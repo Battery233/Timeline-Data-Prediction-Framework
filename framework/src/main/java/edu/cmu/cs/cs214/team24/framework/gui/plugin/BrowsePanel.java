@@ -3,6 +3,7 @@ package edu.cmu.cs.cs214.team24.framework.gui.plugin;
 
 import edu.cmu.cs.cs214.team24.framework.core.Framework;
 import edu.cmu.cs.cs214.team24.framework.core.Plugin;
+import edu.cmu.cs.cs214.team24.framework.gui.DataPluginPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,13 +13,13 @@ import java.util.Vector;
 
 public class BrowsePanel extends JPanel implements ItemListener {
 
-    private Framework core;
+    private DataPluginPanel parent;
     private boolean isDataPlugin;
     private final JLabel browseLabel;
     private final DefaultComboBoxModel<Plugin> model = new DefaultComboBoxModel<>(new Vector<>());
 
-    public BrowsePanel(Framework framework, boolean isDataPlugin) {
-        core = framework;
+    public BrowsePanel(DataPluginPanel parent, boolean isDataPlugin) {
+        this.parent = parent;
         this.isDataPlugin = isDataPlugin;
 
         setLayout(new GridLayout(2, 1));
@@ -40,8 +41,7 @@ public class BrowsePanel extends JPanel implements ItemListener {
 
         comboBox.addActionListener(e -> {
             Plugin selected = (Plugin) comboBox.getSelectedItem();
-            if (isDataPlugin) core.setCurrentDataPlugin(selected);
-            else core.setCurrentDisplayPlugin(selected);
+            parent.onPluginChanged(selected);
         });
         add(comboBox);
     }

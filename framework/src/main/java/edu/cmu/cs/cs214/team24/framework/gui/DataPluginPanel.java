@@ -16,16 +16,15 @@ public class DataPluginPanel extends JPanel {
     private Framework core;
     private JLabel statusLabel = new JLabel("Data not ready, please get data.");
     private BrowsePanel browsePanel;
-    private Calendar startDate;
-    private Calendar endDate;
-    private Map<String, List<String>> paramValues = new HashMap<>();
+    private ParamsPanel paramsPanel;
+    private Date startDate, endDate;
 
     public DataPluginPanel(Framework framework){
         core = framework;
 
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         add(statusLabel);
-        browsePanel = new BrowsePanel(core, true);
+        browsePanel = new BrowsePanel(this, true);
         add(browsePanel);
 
         JPanel fullParamsPanel = new JPanel();
@@ -37,22 +36,11 @@ public class DataPluginPanel extends JPanel {
         fullParamsPanel.add(datePanel2);
 
         // params panel
-        /** added for test */
-        Map<String, List<String>> paramOptions = new HashMap<>();
-        Map<String, Boolean> paramsMultiple = new HashMap<>();
-        String[] bases = {"EUR", "USD", "CNY"};
-        paramOptions.put("base", Arrays.asList(bases));
-        paramOptions.put("currency", Arrays.asList(bases));
-        paramsMultiple.put("base", false);
-        paramsMultiple.put("currency", true);
-        /** added for test */
-//        Map<String, List<String>> paramOptions = core.getParamOptions(true);
-//        Map<String, Boolean> paramsMultiple = core.getAreDataParamsMultiple(true);
-        ParamsPanel paramsPanel = new ParamsPanel(this, paramOptions, paramsMultiple);
+        paramsPanel = new ParamsPanel(this);
         fullParamsPanel.add(paramsPanel);
         add(fullParamsPanel);
 
-        JButton getDataButton = new JButton("Get data");
+        JButton getDataButton = getDataButton();
         add(getDataButton);
     }
 
@@ -60,15 +48,40 @@ public class DataPluginPanel extends JPanel {
         browsePanel.onPluginRegistered(plugin);
     }
 
-    public void onDateChosen(Calendar date, boolean isStart){
+    public void onDateChosen(Date date, boolean isStart){
         if (isStart) startDate = date;
         else endDate = date;
     }
 
-    public JButton getDataButton(){
+    public void onPluginChanged(Plugin dataPlugin){
+        core.setCurrentDataPlugin(dataPlugin);
+        Map<String, List<String>> paramOptions = core.getParamOptions(true);
+        /** added for test */
+        Map<String, Boolean> paramsMultiple = new HashMap<>();
+        paramsMultiple.put("base", false);
+        paramsMultiple.put("symbols", true);
+        /** added for test */
+//        Map<String, Boolean> paramsMultiple = core.getAreDataParamsMultiple(true);
+        paramsPanel.refresh(paramOptions, paramsMultiple);
+    }
+
+    private JButton getDataButton(){
         JButton b = new JButton("Get data");
         b.addActionListener(e -> {
-            core.getData();
+            Map<String, List<String>> paramValues = paramsPanel.getParamsValues();
+            boolean configSuccess = core.setPluginParameters(
+                    true, paramValues, startDate, endDate);
+            if (!configSuccess) {
+                statusLabel.setText("Invalid configuration. Please re-check dates and parameters.");
+            }
+            else {
+                boolean getDataSuccess = core.getData();
+                if (getDataSuccess) {
+                    statusLabel.setText("Data ready. Proceed to display data.");
+                } else {
+                    statusLabel.setText("Get data failed. Please modify your configuration.");
+                }
+            }
         });
         return b;
     }

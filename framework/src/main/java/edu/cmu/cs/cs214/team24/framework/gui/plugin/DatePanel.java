@@ -38,9 +38,7 @@ public class DatePanel extends JPanel {
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
         datePicker.addActionListener(e -> {
-            Date selectedDate = (Date) datePicker.getModel().getValue();
-            Calendar selected = Calendar.getInstance();
-            selected.setTime(selectedDate);
+            Date selected = (Date) datePicker.getModel().getValue();
             parent.onDateChosen(selected, isStart);
         });
         add(datePicker);

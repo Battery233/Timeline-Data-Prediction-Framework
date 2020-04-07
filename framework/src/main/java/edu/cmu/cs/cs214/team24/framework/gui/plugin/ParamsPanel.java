@@ -13,16 +13,13 @@ import java.util.List;
 
 public class ParamsPanel extends JPanel {
 
-    DataPluginPanel parent;
-    Map<String, JList<String>> optionLists = new HashMap<>();
+    private DataPluginPanel parent;
+    private Map<String, JList<String>> optionLists = new HashMap<>();
+    private Map<String, List<String>> paramOptions = new HashMap<>();
 
-    public ParamsPanel(DataPluginPanel parent, Map<String,
-            List<String>> paramOptions, Map<String, Boolean> paramsMultiple){
+    public ParamsPanel(DataPluginPanel parent){
         this.parent = parent;
         setLayout(new FlowLayout());
-        for (String param: paramOptions.keySet()){
-            add(getParamPanel(param, paramOptions.get(param), paramsMultiple.get(param)));
-        }
     }
 
     private JPanel getParamPanel(String param, List<String> options, boolean isMultiple){
@@ -45,6 +42,34 @@ public class ParamsPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(optionList);
         paramPanel.add(scrollPane);
         return paramPanel;
+    }
+
+    public Map<String, List<String>> getParamsValues(){
+        Map<String, List<String>> paramsValues = new HashMap<>();
+        for (String param: optionLists.keySet()){
+            List<String> values = new ArrayList<>();
+            JList<String> jlist = optionLists.get(param);
+            int[] indices = jlist.getSelectedIndices();
+            List<String> options = paramOptions.get(param);
+            for (int idx: indices){
+                values.add(options.get(idx));
+            }
+            paramsValues.put(param, values);
+        }
+        return paramsValues;
+    }
+
+    public void refresh(Map<String, List<String>> pOptions,
+                        Map<String, Boolean> paramsMultiple){
+        removeAll();
+        this.paramOptions = pOptions;
+        if (!paramOptions.isEmpty() && !paramsMultiple.isEmpty()) {
+            for (String param : paramOptions.keySet()) {
+                add(getParamPanel(param, paramOptions.get(param), paramsMultiple.get(param)));
+            }
+        }
+        revalidate();
+        repaint();
     }
 
 }

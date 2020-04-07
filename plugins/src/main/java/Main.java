@@ -18,6 +18,7 @@ public class Main {
 
         List<Plugin> plugins;
         plugins = loadPlugins(true);
+        for (Plugin p: plugins) System.out.println(p.name());
         plugins.forEach(core::registerPlugin);
         plugins = loadPlugins(false);
         plugins.forEach(core::registerPlugin);
