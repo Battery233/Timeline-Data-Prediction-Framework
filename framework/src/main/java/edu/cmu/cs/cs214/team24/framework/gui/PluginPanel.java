@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class PluginPanel extends JPanel {
 
+    private MainPanel parent;
     protected Framework core;
     protected BrowsePanel browsePanel;
     protected ParamsPanel paramsPanel;
@@ -20,7 +21,8 @@ public class PluginPanel extends JPanel {
     private boolean isDataPlugin;
     protected Date startDate, endDate;
 
-    public PluginPanel(Framework framework, boolean isDataPlugin) {
+    public PluginPanel(MainPanel parent, Framework framework, boolean isDataPlugin) {
+        this.parent = parent;
         core = framework;
         this.isDataPlugin = isDataPlugin;
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
@@ -64,8 +66,8 @@ public class PluginPanel extends JPanel {
                     }
                 }
                 else {
-                    JPanel display = core.processAndDisplay();
-                    // TODO: notify main panel
+                    JPanel newDisplay = core.processAndDisplay();
+                    parent.onDisplayChanged(newDisplay);
                 }
             }
         });
