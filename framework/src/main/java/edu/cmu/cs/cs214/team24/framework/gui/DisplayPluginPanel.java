@@ -11,8 +11,8 @@ import java.util.*;
 
 public class DisplayPluginPanel extends PluginPanel {
 
-    public DisplayPluginPanel(Framework framework) {
-        super(framework, false);
+    public DisplayPluginPanel(MainPanel parent, Framework framework) {
+        super(parent, framework, false);
         addStatusLabel();
         addBrowsePanel();
         addParamsPanel();

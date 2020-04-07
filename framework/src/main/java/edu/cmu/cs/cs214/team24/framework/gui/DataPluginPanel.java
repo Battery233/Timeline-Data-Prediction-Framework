@@ -13,8 +13,8 @@ import java.util.List;
 
 public class DataPluginPanel extends PluginPanel {
 
-    public DataPluginPanel(Framework framework){
-        super(framework, true);
+    public DataPluginPanel(MainPanel parent, Framework framework){
+        super(parent, framework, true);
         addStatusLabel();
         addBrowsePanel();
         addDatePanels();
