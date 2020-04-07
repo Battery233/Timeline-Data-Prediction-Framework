@@ -1,9 +1,21 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+}
+
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'jacoco'
 apply plugin: 'application'
-
-mainClassName = "edu.cmu.cs.cs214.team24.framework.core.FrameworkImpl"
 
 test.testLogging {
     exceptionFormat "full"
@@ -29,13 +41,9 @@ dependencies {
     compile project(':framework')
 }
 
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
-    }
+javafx {
+    version = "11"
+    modules = [ 'javafx.controls', 'javafx.graphics', 'javafx.swing', 'javafx.base' ]
 }
 
 jacoco {
@@ -49,3 +57,5 @@ jacocoTestReport {
         html.destination file("${buildDir}/reports/coverage")
     }
 }
+
+mainClassName = "edu.cmu.cs.cs214.team24.framework.core.FrameworkImpl"
