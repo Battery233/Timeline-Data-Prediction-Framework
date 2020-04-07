@@ -111,12 +111,12 @@ public class StockPriceDataPlugin implements DataPlugin {
 
     @Override
     public Map<String, List<String>> getParamOptions() {
-        return null;
+        return new HashMap<>();
     }
 
     @Override
     public Map<String, Boolean> areParamsMultiple() {
-        return null;
+        return new HashMap<>();
     }
 
     @Override
