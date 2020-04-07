@@ -11,6 +11,7 @@ public class FrameworkImpl implements Framework {
     private DisplayPlugin currentDisplayPlugin;
     private DataSet dataset;
     private StatusChangeListener statusChangeListener;
+    private static long SECONDS_PER_DAY = 86400000;
 
     public FrameworkImpl() {
     }
@@ -80,7 +81,16 @@ public class FrameworkImpl implements Framework {
 
     @Override
     public JPanel processAndDisplay() {
-        return null;
+        Map<String, Double> prediction = predict(dataset, 3);
+        Date[] dates = dataset.getTimeRange();
+        Date latestDate = dates[dates.length - 1];
+        Date newDate = new Date(latestDate.getTime() + SECONDS_PER_DAY);
+
+        DisplayDataSet displayDataSet = new DisplayDataSet(dataset, newDate, prediction);
+        currentDisplayPlugin.setDisplayDataSet(displayDataSet);
+
+        return currentDisplayPlugin.display();
+
     }
 
     @Override
