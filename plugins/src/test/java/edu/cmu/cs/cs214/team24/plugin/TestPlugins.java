@@ -50,8 +50,8 @@ public class TestPlugins {
         list2.add("GBP");
         params.put("base", list2);
         assertTrue(framework.setPluginParameters(true, params, bt, et));
-        assertTrue(framework.getData());
-        System.out.println(cdp.getData());
+//        assertTrue(framework.getData());
+//        System.out.println(cdp.getData());
     }
 
     @Test

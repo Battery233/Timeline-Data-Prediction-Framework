@@ -1,5 +1,6 @@
 package edu.cmu.cs.cs214.team24.plugin;
 
+import edu.cmu.cs.cs214.team24.framework.core.DataSet;
 import edu.cmu.cs.cs214.team24.framework.core.DisplayDataSet;
 import edu.cmu.cs.cs214.team24.framework.core.DisplayPlugin;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
@@ -23,9 +24,13 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
     }
 
     @Override
+    public void setDataSet(DataSet metaData){
+        this.options = metaData.getData().keySet();
+    }
+
+    @Override
     public void setDisplayDataSet(DisplayDataSet data){
         this.data = data;
-        options = data.getOriginalData().getData().keySet();
     }
 
     @Override

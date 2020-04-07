@@ -15,6 +15,7 @@ public class ParamsPanel extends JPanel {
 
     private Map<String, JList<String>> optionLists = new HashMap<>();
     private Map<String, List<String>> paramOptions = new HashMap<>();
+    private JScrollPane scroll;
 
     public ParamsPanel(){
         setLayout(new FlowLayout());
@@ -22,7 +23,7 @@ public class ParamsPanel extends JPanel {
 
     private JPanel getParamPanel(String param, List<String> options, boolean isMultiple){
         JPanel paramPanel = new JPanel();
-        paramPanel.setLayout(new GridLayout(2, 1));
+        paramPanel.setLayout(new BoxLayout(paramPanel,BoxLayout.PAGE_AXIS));
         JLabel paramLabel = new JLabel(param);
         paramPanel.add(paramLabel);
 
@@ -66,8 +67,11 @@ public class ParamsPanel extends JPanel {
                 add(getParamPanel(param, paramOptions.get(param), paramsMultiple.get(param)));
             }
         }
-        revalidate();
-        repaint();
+        scroll.revalidate();
+        scroll.repaint();
     }
 
+    public void setScrollPane(JScrollPane sgp) {
+        scroll = sgp;
+    }
 }

@@ -24,5 +24,7 @@ public interface Framework {
 
     boolean getData();
 
+    void setDisplayPluginOptions();
+
     JPanel processAndDisplay();
 }

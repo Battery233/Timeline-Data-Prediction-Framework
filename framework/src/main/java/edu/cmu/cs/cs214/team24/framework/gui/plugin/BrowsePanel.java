@@ -15,10 +15,14 @@ import java.util.Vector;
 public class BrowsePanel extends JPanel {
 
     private final DefaultComboBoxModel<Plugin> model = new DefaultComboBoxModel<>(new Vector<>());
+    private final JComboBox<Plugin> comboBox;
+    private PluginPanel parent;
     private boolean isDataPlugin;
 
     public BrowsePanel(PluginPanel parent, boolean isDataPlugin) {
+        this.parent = parent;
         this.isDataPlugin = isDataPlugin;
+        setEnabled(isDataPlugin);
 
         setLayout(new GridLayout(2, 1));
         String pluginName = "data";
@@ -26,7 +30,7 @@ public class BrowsePanel extends JPanel {
         JLabel browseLabel = new JLabel("Select a " + pluginName + " plugin.");
         add(browseLabel);
 
-        JComboBox<Plugin> comboBox = new JComboBox<>(model);
+        comboBox = new JComboBox<>(model);
         // display the plugins by names
         comboBox.setRenderer(new DefaultListCellRenderer() {
             @Override
@@ -38,15 +42,25 @@ public class BrowsePanel extends JPanel {
                 return this;
             }
         });
-
-        comboBox.addActionListener(e -> {
-            Plugin selected = (Plugin) comboBox.getSelectedItem();
-            parent.onPluginChanged(selected);
-        });
+        if (isDataPlugin) {
+            addComboBoxListener();
+        }
         add(comboBox);
+    }
+
+    public void enableSelection(){
+        setEnabled(true);
+        addComboBoxListener();
     }
 
     public void onPluginRegistered(Plugin plugin) {
         if (plugin.isDataPlugin() == isDataPlugin) model.addElement(plugin);
+    }
+
+    private void addComboBoxListener(){
+        comboBox.addActionListener(e -> {
+            Plugin selected = (Plugin) comboBox.getSelectedItem();
+            parent.onPluginChanged(selected);
+        });
     }
 }

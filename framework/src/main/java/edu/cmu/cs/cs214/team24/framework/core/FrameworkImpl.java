@@ -80,6 +80,11 @@ public class FrameworkImpl implements Framework {
     }
 
     @Override
+    public void setDisplayPluginOptions() {
+        currentDisplayPlugin.setDataSet(dataset);
+    }
+
+    @Override
     public JPanel processAndDisplay() {
         Map<String, Double> prediction = predict(dataset, 3);
         Date[] dates = dataset.getTimeRange();
