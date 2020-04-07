@@ -6,28 +6,21 @@ import java.util.List;
 import java.util.Map;
 
 public class FrameworkImpl implements Framework {
-    private final List<Plugin> dataPlugins;
-    private final List<Plugin> displayPlugins;
     private Plugin currentDataPlugin;
     private Plugin currentDisplayPlugin;
     private Map<String, List<String>> dataParamOptions;
     private Map<String, List<String>> displayParamOptions;
     private Map<String, Boolean> isDataParamsMultiple;
     private Map<String, Boolean> isDisplayParamsMultiple;
+    private GameChangeListener gameChangeListener;
 
     public FrameworkImpl() {
-        dataPlugins = PluginLoader.registerDataPlugin();
-        displayPlugins = PluginLoader.registerDisplayPlugin();
     }
 
     @Override
-    public List<String> getDataPluginNames() {
-        return null;
-    }
-
-    @Override
-    public List<String> getDisplayPluginNames() {
-        return null;
+    public void registerPlugin(Plugin plugin){
+        plugin.onRegister(this);
+        notifyPluginRegistered(plugin);
     }
 
     @Override
@@ -59,5 +52,14 @@ public class FrameworkImpl implements Framework {
     @Override
     public JPanel processAndDisplay() {
         return null;
+    }
+
+    @Override
+    public void setGameChangeListener(GameChangeListener listener) {
+        gameChangeListener = listener;
+    }
+
+    private void notifyPluginRegistered(Plugin plugin) {
+        gameChangeListener.onPluginRegistered(plugin);
     }
 }

@@ -7,9 +7,9 @@ import java.util.Map;
 
 public interface Framework {
 
-    List<String> getDataPluginNames();
+    void registerPlugin(Plugin plugin);
 
-    List<String> getDisplayPluginNames();
+    void setGameChangeListener(GameChangeListener listener);
 
     void setCurrentDataPlugin(Plugin plugin);
 
