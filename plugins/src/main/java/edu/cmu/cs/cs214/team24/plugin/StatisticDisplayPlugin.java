@@ -65,9 +65,9 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
         JLabel tTest = new JLabel("P-value is " + pValue);
         JLabel res = new JLabel();
         if (pValue < 0.05) {
-            res.setText("The difference is not considered statistically significant.");
-        } else {
             res.setText("The difference is considered statistically significant.");
+        } else {
+            res.setText("The difference is not considered statistically significant.");
         }
         scrollPane.add(tTest);
         scrollPane.add(res);
