@@ -1,11 +1,7 @@
 package edu.cmu.cs.cs214.team24.framework.core;
 
-import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
 import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
-import org.apache.commons.math3.optimization.fitting.WeightedObservedPoint;
-import org.apache.commons.math3.stat.inference.TTest;
-import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import javax.swing.JPanel;
 import java.util.*;
