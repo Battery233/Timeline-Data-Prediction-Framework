@@ -2,6 +2,7 @@ package edu.cmu.cs.cs214.team24.plugin;
 
 import edu.cmu.cs.cs214.team24.framework.core.DataPlugin;
 import edu.cmu.cs.cs214.team24.framework.core.DataSet;
+import edu.cmu.cs.cs214.team24.framework.core.Framework;
 
 import java.io.IOException;
 import java.net.URL;
@@ -81,6 +82,11 @@ public class CurrencyDataPlugin implements DataPlugin {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void onRegister(Framework framework) {
+
     }
 
     private boolean validSymbol(String symbol) {
