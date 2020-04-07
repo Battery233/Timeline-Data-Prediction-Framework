@@ -11,10 +11,10 @@ public class FrameworkImpl implements Framework {
     private DisplayPlugin currentDisplayPlugin;
     private Map<String, List<String>> dataParamOptions;
     private Map<String, List<String>> displayParamOptions;
-    private Map<String, Boolean> isDataParamsMultiple;
-    private Map<String, Boolean> isDisplayParamsMultiple;
+    private Map<String, Boolean> areDataParamsMultiple;
+    private Map<String, Boolean> areDisplayParamsMultiple;
     private DataSet dataset;
-    private GameChangeListener gameChangeListener;
+    private StatusChangeListener statusChangeListener;
 
     public FrameworkImpl() {
     }
@@ -43,6 +43,12 @@ public class FrameworkImpl implements Framework {
         } else {
             return currentDisplayPlugin.getParamOptions();
         }
+    }
+
+    @Override
+    public Map<String, Boolean> getAreDataParamsMultiple(boolean isDataPlugin) {
+        if (isDataPlugin) return new HashMap<>(areDataParamsMultiple);
+        else return new HashMap<>(areDisplayParamsMultiple);
     }
 
     @Override
@@ -83,8 +89,8 @@ public class FrameworkImpl implements Framework {
     }
 
     @Override
-    public void setGameChangeListener(GameChangeListener listener) {
-        gameChangeListener = listener;
+    public void setStatusChangeListener(StatusChangeListener listener) {
+        statusChangeListener = listener;
     }
 
     public Map<String, List<Double>> predict(DataSet data, int n, int degree) {
@@ -120,6 +126,6 @@ public class FrameworkImpl implements Framework {
     }
 
     private void notifyPluginRegistered(Plugin plugin) {
-        gameChangeListener.onPluginRegistered(plugin);
+        statusChangeListener.onPluginRegistered(plugin);
     }
 }

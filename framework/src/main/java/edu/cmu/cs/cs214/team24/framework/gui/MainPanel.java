@@ -1,14 +1,13 @@
 package edu.cmu.cs.cs214.team24.framework.gui;
 
 import edu.cmu.cs.cs214.team24.framework.core.Framework;
-import edu.cmu.cs.cs214.team24.framework.core.FrameworkImpl;
-import edu.cmu.cs.cs214.team24.framework.core.GameChangeListener;
+import edu.cmu.cs.cs214.team24.framework.core.StatusChangeListener;
 import edu.cmu.cs.cs214.team24.framework.core.Plugin;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainPanel extends JPanel implements GameChangeListener {
+public class MainPanel extends JPanel implements StatusChangeListener {
 
     private Framework core;
     private DataPluginPanel dataPluginPanel;
