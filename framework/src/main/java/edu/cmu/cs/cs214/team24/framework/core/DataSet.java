@@ -1,5 +1,6 @@
 package edu.cmu.cs.cs214.team24.framework.core;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
@@ -18,5 +19,19 @@ public class DataSet {
 
     public Map<String, double[]> getData() {
         return data;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("timeRange=").append(Arrays.toString(timeRange)).append("\n");
+        for (Map.Entry<String, double[]> e : data.entrySet()) {
+            sb.append(e.getKey()).append(": ");
+            for (double d : e.getValue()) {
+                sb.append(d).append(", ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
