@@ -8,9 +8,8 @@ import edu.cmu.cs.cs214.team24.framework.gui.plugin.ParamsPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Calendar;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class DataPluginPanel extends JPanel {
 
@@ -19,12 +18,12 @@ public class DataPluginPanel extends JPanel {
     private BrowsePanel browsePanel;
     private Calendar startDate;
     private Calendar endDate;
-    private Map<String, List<String>> paramValues;
+    private Map<String, List<String>> paramValues = new HashMap<>();
 
     public DataPluginPanel(Framework framework){
         core = framework;
 
-        setLayout(new GridLayout(4, 1));
+        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         add(statusLabel);
         browsePanel = new BrowsePanel(core, true);
         add(browsePanel);
@@ -38,8 +37,18 @@ public class DataPluginPanel extends JPanel {
         fullParamsPanel.add(datePanel2);
 
         // params panel
-        Map<String, List<String>> paramOptions = core.getParamOptions(true);
-        ParamsPanel paramsPanel = new ParamsPanel(this, paramOptions);
+        /** added for test */
+        Map<String, List<String>> paramOptions = new HashMap<>();
+        Map<String, Boolean> paramsMultiple = new HashMap<>();
+        String[] bases = {"EUR", "USD", "CNY"};
+        paramOptions.put("base", Arrays.asList(bases));
+        paramOptions.put("currency", Arrays.asList(bases));
+        paramsMultiple.put("base", false);
+        paramsMultiple.put("currency", true);
+        /** added for test */
+//        Map<String, List<String>> paramOptions = core.getParamOptions(true);
+//        Map<String, Boolean> paramsMultiple = core.getAreDataParamsMultiple(true);
+        ParamsPanel paramsPanel = new ParamsPanel(this, paramOptions, paramsMultiple);
         fullParamsPanel.add(paramsPanel);
         add(fullParamsPanel);
 
@@ -54,10 +63,6 @@ public class DataPluginPanel extends JPanel {
     public void onDateChosen(Calendar date, boolean isStart){
         if (isStart) startDate = date;
         else endDate = date;
-    }
-
-    public void onParamSelected(String param, String option){
-
     }
 
 }

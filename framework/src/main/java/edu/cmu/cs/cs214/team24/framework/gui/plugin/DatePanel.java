@@ -24,7 +24,9 @@ public class DatePanel extends JPanel {
     public DatePanel(DataPluginPanel parent, boolean isStart) {
 
         setLayout(new GridLayout(2, 1));
-        JLabel dateLabel = new JLabel("Choose a start date.");
+        String dateName = "start";
+        if (!isStart) dateName = "end";
+        JLabel dateLabel = new JLabel("Choose " + dateName + " date.");
         add(dateLabel);
 
         UtilDateModel model = new UtilDateModel();

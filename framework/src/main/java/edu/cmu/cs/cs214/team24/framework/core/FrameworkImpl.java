@@ -1,10 +1,7 @@
 package edu.cmu.cs.cs214.team24.framework.core;
 
 import javax.swing.JPanel;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FrameworkImpl implements Framework {
     private Plugin currentDataPlugin;
