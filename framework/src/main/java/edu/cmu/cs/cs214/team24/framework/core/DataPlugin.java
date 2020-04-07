@@ -1,9 +1,9 @@
 package edu.cmu.cs.cs214.team24.framework.core;
 
-import java.util.Calendar;
+import java.util.Date;
 
 public interface DataPlugin extends Plugin {
-    boolean setTimePeriod(Calendar start, Calendar end);
+    boolean setTimePeriod(Date start, Date end);
 
     DataSet getData();
 }

@@ -52,7 +52,7 @@ public class DataPluginPanel extends JPanel {
         fullParamsPanel.add(paramsPanel);
         add(fullParamsPanel);
 
-        JButton getDataButton = new JButton("Get data.");
+        JButton getDataButton = new JButton("Get data");
         add(getDataButton);
     }
 
@@ -63,6 +63,14 @@ public class DataPluginPanel extends JPanel {
     public void onDateChosen(Calendar date, boolean isStart){
         if (isStart) startDate = date;
         else endDate = date;
+    }
+
+    public JButton getDataButton(){
+        JButton b = new JButton("Get data");
+        b.addActionListener(e -> {
+            core.getData();
+        });
+        return b;
     }
 
 }

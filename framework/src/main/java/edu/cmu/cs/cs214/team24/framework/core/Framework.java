@@ -22,7 +22,7 @@ public interface Framework {
 
     boolean setPluginParameters(boolean isDataPlugin, Map<String, List<String>> params, Date startDate, Date endDate);
 
-    DataSet getData();
+    boolean getData();
 
     JPanel processAndDisplay();
 }
