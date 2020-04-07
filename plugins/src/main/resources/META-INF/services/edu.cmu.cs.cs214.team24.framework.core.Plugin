@@ -3,3 +3,4 @@
 # with one plugin per line.
 edu.cmu.cs.cs214.team24.plugin.CurrencyDataPlugin
 edu.cmu.cs.cs214.team24.plugin.StatisticDisplayPlugin
+edu.cmu.cs.cs214.team24.plugin.StockPriceDataPlugin

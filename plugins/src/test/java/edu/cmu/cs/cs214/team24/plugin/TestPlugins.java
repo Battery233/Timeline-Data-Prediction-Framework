@@ -52,4 +52,14 @@ public class TestPlugins {
         assertTrue(framework.setPluginParameters(true, params, bt, et));
         assertTrue(framework.getData());
     }
+
+    @Test
+    public void testAppleStock() throws ParseException {
+        StockPriceDataPlugin stockPriceDataPlugin = new StockPriceDataPlugin();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date bt = format.parse("2020-03-20");
+        Date et = format.parse("2020-04-6");
+        stockPriceDataPlugin.setTimePeriod(bt, et);
+        System.out.println(stockPriceDataPlugin.getData());
+    }
 }

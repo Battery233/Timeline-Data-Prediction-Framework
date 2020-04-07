@@ -43,7 +43,7 @@ public class CurrencyDataPlugin implements DataPlugin {
 
     @Override
     public String name() {
-        return "Currency Data plugin";
+        return "Currency Data plugin (JSON)";
     }
 
     @Override
