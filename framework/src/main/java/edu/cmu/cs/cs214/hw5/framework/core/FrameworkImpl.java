@@ -137,6 +137,7 @@ public class FrameworkImpl implements Framework {
 
     private double calculate(double[] coefficients, int x) {
         double res = coefficients[0];
+        // Calculate the final prediction result based on coefficient.
         for (int i = 1; i < coefficients.length; i++) {
             res += coefficients[i] * Math.pow(x, i);
         }

@@ -50,17 +50,25 @@ public interface Framework {
     Map<String, Boolean> getAreDataParamsMultiple(boolean isDataPlugin);
 
     /**
-     * Set the parameters for a plugin.
-     * @param isDataPlugin
-     * @param params
-     * @param startDate
-     * @param endDate
-     * @return
+     * Set the parameters for a data or display plugin.
+     * @param isDataPlugin   Check if the plugin is a data plugin.
+     * @param params         A map which mapping parameter and the list of options.
+     * @param startDate      The start date for the data plugin
+     * @param endDate        The end date for the data plugin.
+     * @return      True if set the parameters successfully.
      */
     boolean setPluginParameters(boolean isDataPlugin, Map<String, List<String>> params, Date startDate, Date endDate);
 
+    /**
+     * Get the data from the data plugin.
+     * @return  True if get the data successfully.
+     */
     boolean getData();
 
+    /**
+     * Set the Options of the display plugin. The goal is to extracted options from data set which
+     * extracted from data plugin and set it in the display plugin.
+     */
     void setDisplayPluginOptions();
 
     /**
