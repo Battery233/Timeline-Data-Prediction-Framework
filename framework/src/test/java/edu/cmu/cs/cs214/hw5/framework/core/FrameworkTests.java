@@ -27,7 +27,6 @@ public class FrameworkTests {
         map.put("USD", arr2);
         DataSet data = new DataSet(dates, map);
         Map<String, Double> res = impl.predict(data, 3);
-        //System.out.println(res);
         double expect1 = res.get("RMB");
         double expect2 = res.get("USD");
         Assert.assertTrue(Math.abs(expect1 - 7) < 1);
