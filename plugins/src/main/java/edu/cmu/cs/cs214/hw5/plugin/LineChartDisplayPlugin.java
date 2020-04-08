@@ -59,7 +59,6 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
             series.getData().add(new XYChart.Data(data.getPredictionDate().toString(), data.getPredictionValue()));
             lineChart.getData().add(series);
         }
-
         Scene scene  = new Scene(lineChart,800,600);
         jfxPanel.setScene(scene);
         return jfxPanel;

@@ -4,6 +4,7 @@ import edu.cmu.cs.cs214.hw5.framework.core.Framework;
 import edu.cmu.cs.cs214.hw5.framework.core.Plugin;
 import edu.cmu.cs.cs214.hw5.framework.gui.plugin.DatePanel;
 
+import java.awt.*;
 import java.util.*;
 
 public class DataPluginPanel extends PluginPanel {
@@ -32,10 +33,11 @@ public class DataPluginPanel extends PluginPanel {
     @Override
     public void onPluginChanged(Plugin plugin){
         core.setCurrentDataPlugin(plugin);
-        statusLabel.setText("Data not ready, please configure data parameters and get data.");
         parent.onDataPluginChanged();
         retrieveParams();
         refreshParams();
+        statusLabel.setText("Please configure data parameters and get data.");
+        statusLabel.setForeground(Color.red);
     }
 
 }

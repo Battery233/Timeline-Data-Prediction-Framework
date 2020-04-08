@@ -51,11 +51,8 @@ public class BrowsePanel extends JPanel {
     }
 
     public void disableSelection(){
-        System.out.println("disable here1");
         setEnabled(false);
-        System.out.println("disable here2");
         clearComboBoxListener();
-        System.out.println("disable here3");
     }
 
     public void onPluginRegistered(Plugin plugin) {
