@@ -108,6 +108,14 @@ public class FrameworkImpl implements Framework {
         statusChangeListener = listener;
     }
 
+    /**
+     * Use the existing data to predict a value for the next time(day/ week/ month/ year). We use
+     * PolynomialCurveFitter for the prediction.
+     * @param data   the data set extracted from the data plugin
+     * @param degree  the degree of the PolynomialCurveFitter.
+     * @return   A map of the prediction result. The map key is the type of the prediction value and
+     *           the map value is the prediction value which is in a Double format.
+     */
     public Map<String, Double> predict(DataSet data, int degree) {
         WeightedObservedPoints points = new WeightedObservedPoints();
         Map<String, double[]> map = data.getData();

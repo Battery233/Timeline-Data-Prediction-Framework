@@ -71,6 +71,8 @@ public class TestDisplayPlugins {
         Assert.assertEquals(expected4, true);
         Assert.assertEquals(expected5, false);
 
+        System.setProperty("java.awt.headless", "false");
+        System.out.println(java.awt.GraphicsEnvironment.isHeadless());
         JPanel expected6 = plugin.display();
         Assert.assertTrue(expected6 != null);
     }
@@ -103,6 +105,8 @@ public class TestDisplayPlugins {
         Assert.assertEquals(expected4, true);
         Assert.assertEquals(expected5, false);
 
+        System.setProperty("java.awt.headless", "false");
+        System.out.println(java.awt.GraphicsEnvironment.isHeadless());
         JPanel expected6 = plugin.display();
         Assert.assertTrue(expected6 != null);
 
