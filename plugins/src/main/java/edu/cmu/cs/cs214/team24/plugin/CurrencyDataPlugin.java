@@ -9,7 +9,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.Scanner;
 public class CurrencyDataPlugin implements DataPlugin {
     private static String ALL_CURRENCY = "CAD,HKD,ISK,PHP,DKK,HUF,CZK,GBP,RON,SEK,IDR,INR,BRL,RUB,HRK,JPY,THB,CHF,EUR,MYR,BGN,TRY,CNY,NOK,NZD,ZAR,USD,MXN,SGD,AUD,ILS,KRW,PLN";
     private static String API_URL = "https://api.exchangeratesapi.io/history?";
-    private static long SECONDS_PER_DAY = 86400000;
     private Map<String, List<String>> paramOptions = new HashMap<>();
     private Map<String, Boolean> isParamsMultiple = new HashMap<>();
     private String startDate = "";
@@ -136,15 +134,9 @@ public class CurrencyDataPlugin implements DataPlugin {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date start = format.parse(JSONData.start_at);
         Date end = format.parse(JSONData.end_at);
-        int days = (int) ((Math.round((double) (end.getTime() - start.getTime()) / SECONDS_PER_DAY)) + 1);
 
-        Date[] dates = new Date[days];
-        Calendar calendar = Calendar.getInstance();
-        for (int i = 0; i < days; i++) {
-            calendar.setTime(start);
-            calendar.add(Calendar.DATE, i);
-            dates[i] = calendar.getTime();
-        }
+        int days = dateUtil.dateInterval(start, end);
+        Date[] dates = dateUtil.getDateArray(start, end);
 
         Map<String, double[]> data = new HashMap<>();
         for (Map<String, Double> e : JSONData.rates.values()) {
