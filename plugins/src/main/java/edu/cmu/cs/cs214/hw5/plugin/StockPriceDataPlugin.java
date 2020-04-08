@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +20,7 @@ import java.util.Map;
  * the open price, close price, highest and lowest price of the day. The free sample API key only works on Apple.
  */
 public final class StockPriceDataPlugin implements DataPlugin {
-    private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     private String startDate = "";
     private String endDate = "";
 
@@ -57,7 +58,7 @@ public final class StockPriceDataPlugin implements DataPlugin {
             String urlString = "https://eodhistoricaldata.com/api/eod/AAPL.US?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX"
                     + "&from=" + startDate + "&to=" + endDate;
             URL url = new URL(urlString);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
 
             int i = 0;
             String s;

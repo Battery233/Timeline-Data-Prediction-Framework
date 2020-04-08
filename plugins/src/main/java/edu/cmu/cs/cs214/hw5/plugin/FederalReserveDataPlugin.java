@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,9 +76,9 @@ public final class FederalReserveDataPlugin implements DataPlugin {
             //read data from local csv
             BufferedReader br;
             try {
-                br = new BufferedReader(new FileReader("src/main/resources/fred_data.csv"));
+                br = new BufferedReader(new FileReader("src/main/resources/fred_data.csv", StandardCharsets.UTF_8));
             } catch (FileNotFoundException e2) {
-                br = new BufferedReader(new FileReader("plugins/src/main/resources/fred_data.csv"));
+                br = new BufferedReader(new FileReader("plugins/src/main/resources/fred_data.csv", StandardCharsets.UTF_8));
             }
             br.readLine();
 
@@ -97,7 +98,8 @@ public final class FederalReserveDataPlugin implements DataPlugin {
                 if (currentDate.after(end)) {
                     break;
                 } else if (!start.after(currentDate)) {
-                    for (int i : outputIndexed.keySet()) {
+                    for (Map.Entry<Integer,String> e: outputIndexed.entrySet()) {
+                        int i = e.getKey();
                         data.get(outputIndexed.get(i))[dataIndex] = Double.parseDouble(details[i]);
                     }
                     dataIndex++;
