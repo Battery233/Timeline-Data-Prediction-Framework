@@ -20,11 +20,12 @@ public class DisplayDataSet {
 
     /**
      * The constructor of the display data set
-     * @param originalData   the original data without any prediction
+     *
+     * @param originalData    the original data without any prediction
      * @param predictionDate  the date of the prediction
-     * @param predictionValue  a map of the type of the prediction value and the prediction value
+     * @param predictionValue a map of the type of the prediction value and the prediction value
      */
-    public DisplayDataSet(DataSet originalData, Date predictionDate, Map<String,Double> predictionValue) {
+    public DisplayDataSet(DataSet originalData, Date predictionDate, Map<String, Double> predictionValue) {
         this.originalData = originalData;
         this.predictionDate = predictionDate;
         this.predictionValue = predictionValue;
@@ -32,7 +33,8 @@ public class DisplayDataSet {
 
     /**
      * To get the original data without any prediction
-     * @return   the original data
+     *
+     * @return the original data
      */
     public DataSet getOriginalData() {
         return originalData;
@@ -40,7 +42,8 @@ public class DisplayDataSet {
 
     /**
      * To get the date of the prediction
-     * @return   the date of the prediction
+     *
+     * @return the date of the prediction
      */
     public Date getPredictionDate() {
         return predictionDate;
@@ -48,6 +51,7 @@ public class DisplayDataSet {
 
     /**
      * To get the map of the type of the prediction value and the prediction value
+     *
      * @return a map of the type of the prediction value and the prediction value
      */
     public Map<String, Double> getPredictionValue() {

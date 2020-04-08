@@ -7,7 +7,8 @@ public interface StatusChangeListener {
 
     /**
      * This function will be called when a new plugin is registered.
-     * @param plugin   The new plugin which is to be registered.
+     *
+     * @param plugin The new plugin which is to be registered.
      */
     void onPluginRegistered(Plugin plugin);
 }

@@ -47,6 +47,7 @@ public class Main {
 
     /**
      * Load the plugin from META-INFO
+     *
      * @param isDataPlugin if the plugin is a data plugin
      * @return the list of plugins
      */

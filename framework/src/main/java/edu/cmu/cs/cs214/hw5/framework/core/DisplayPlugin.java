@@ -5,17 +5,19 @@ import javax.swing.JPanel;
 /**
  * The interface for display plugin which represent the data.
  */
-public interface DisplayPlugin extends Plugin{
+public interface DisplayPlugin extends Plugin {
 
     /**
      * Set the meta data for the display plugin
-     * @param metaData   the data originally extracted from data plugin
+     *
+     * @param metaData the data originally extracted from data plugin
      */
     void setDataSet(DataSet metaData);
 
     /**
      * Set the display data for the display plugin
-     * @param data   the display data which has been processed by framework
+     *
+     * @param data the display data which has been processed by framework
      */
     void setDisplayDataSet(DisplayDataSet data);
 
@@ -26,7 +28,8 @@ public interface DisplayPlugin extends Plugin{
 
     /**
      * Generate a Jpanel object which contains the representation of the data
-     * @return    a Jpanel instance which will be added into the GUI frame
+     *
+     * @return a Jpanel instance which will be added into the GUI frame
      */
     JPanel display();
 }

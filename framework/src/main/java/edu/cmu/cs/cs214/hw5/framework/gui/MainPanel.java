@@ -1,11 +1,15 @@
 package edu.cmu.cs.cs214.hw5.framework.gui;
 
 import edu.cmu.cs.cs214.hw5.framework.core.Framework;
-import edu.cmu.cs.cs214.hw5.framework.core.StatusChangeListener;
 import edu.cmu.cs.cs214.hw5.framework.core.Plugin;
+import edu.cmu.cs.cs214.hw5.framework.core.StatusChangeListener;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.Font;
 
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
@@ -40,7 +44,7 @@ public class MainPanel extends JPanel implements StatusChangeListener {
         add(scroll, BorderLayout.CENTER);
     }
 
-    private void getTitlePanel(boolean isDataPlugin){
+    private void getTitlePanel(boolean isDataPlugin) {
         JPanel title = new JPanel();
         String titleText = "Data Plugin Area";
         if (!isDataPlugin) titleText = "Display Plugin Area";
@@ -56,7 +60,7 @@ public class MainPanel extends JPanel implements StatusChangeListener {
         else displayPluginPanel.onPluginRegistered(plugin);
     }
 
-    public void onGetDataSuccess(){
+    public void onGetDataSuccess() {
         displayPluginPanel.enableBrowsePanel();
     }
 
@@ -64,7 +68,7 @@ public class MainPanel extends JPanel implements StatusChangeListener {
         displayPluginPanel.disableBrowsePanel();
     }
 
-    public void onDisplayChanged(JPanel newDisplay){
+    public void onDisplayChanged(JPanel newDisplay) {
         display.removeAll();
         display.add(newDisplay);
         scroll.revalidate();

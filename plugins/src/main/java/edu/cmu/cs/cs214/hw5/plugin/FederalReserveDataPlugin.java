@@ -98,7 +98,7 @@ public final class FederalReserveDataPlugin implements DataPlugin {
                 if (currentDate.after(end)) {
                     break;
                 } else if (!start.after(currentDate)) {
-                    for (Map.Entry<Integer,String> e: outputIndexed.entrySet()) {
+                    for (Map.Entry<Integer, String> e : outputIndexed.entrySet()) {
                         int i = e.getKey();
                         data.get(outputIndexed.get(i))[dataIndex] = Double.parseDouble(details[i]);
                     }
