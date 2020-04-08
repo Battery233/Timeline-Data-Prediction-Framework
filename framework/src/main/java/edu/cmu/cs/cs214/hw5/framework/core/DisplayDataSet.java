@@ -3,15 +3,20 @@ package edu.cmu.cs.cs214.hw5.framework.core;
 import java.util.Date;
 import java.util.Map;
 
-
 /**
- * The Set of data for display.
+ * A class represents the data output from the framework.
+ * It contains the original data and the predicted values created by our framework.
+ * This will be used to pass on information from the framework to the display plugin.
  */
 public class DisplayDataSet {
-
+    //a DataSet object which contains the original data we get from data plugin
     private DataSet originalData;
+
+    //a date to indicate the date which we predict the value using the framework
     private Date predictionDate;
-    private Map<String,Double> predictionValue;
+
+    //a map to store the predicted values for different lines of data on the predictionDate
+    private Map<String, Double> predictionValue;
 
     /**
      * The constructor of the display data set

@@ -11,10 +11,16 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class LineChartDisplayPlugin implements DisplayPlugin {
 
@@ -28,7 +34,7 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
     }
 
     @Override
-    public void setDataSet(DataSet metaData){
+    public void setDataSet(DataSet metaData) {
         this.options = metaData.getData().keySet();
     }
 
@@ -56,12 +62,7 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
         newFrame.setVisible(true);
         frame = newFrame;
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                initFX(fxPanel);
-            }
-        });
+        Platform.runLater(() -> initFX(fxPanel));
 
         JLabel jLabel = new JLabel("Due to the size of window, the result will be showed on a new extended window!");
         panel.add(jLabel);
@@ -79,7 +80,7 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Day");
-        final LineChart<String,Number> lineChart = new LineChart<>(xAxis,yAxis);
+        final LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
         List<String> list = toDisplay.get("toAdd");
         for (String s : list) {
             XYChart.Series series = new XYChart.Series();
@@ -93,8 +94,7 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
             lineChart.getData().add(series);
         }
 
-        Scene scene  = new Scene(lineChart,800,600);
-        return scene;
+        return new Scene(lineChart, 800, 600);
     }
 
     @Override
@@ -139,7 +139,8 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
 
     /**
      * Check if the to display data structure is empty.
-     * @return  true or false
+     *
+     * @return true or false
      */
     public boolean isToDisplayEmpty() {
         return toDisplay.size() == 0;
