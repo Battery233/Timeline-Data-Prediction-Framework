@@ -14,11 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StockPriceDataPlugin implements DataPlugin {
-    //free sample API key only works on AAPL
-    private static String API_URL = "https://eodhistoricaldata.com/api/eod/AAPL.US?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX";
+/**
+ * The plugin to get the stock price of the Apple company. The user can specify the time range. The data contains
+ * the open price, close price, highest and lowest price of the day. The free sample API key only works on Apple.
+ */
+public final class StockPriceDataPlugin implements DataPlugin {
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
     private String startDate = "";
     private String endDate = "";
 
@@ -43,16 +44,18 @@ public class StockPriceDataPlugin implements DataPlugin {
             Date start = format.parse(startDate);
             Date end = format.parse(endDate);
 
-            int days = dateUtil.dateInterval(start, end);
-            Date[] dates = dateUtil.getDateArray(start, end);
+            int days = DateUtil.dateInterval(start, end);
+            Date[] dates = DateUtil.getDateArray(start, end);
 
+            //set four entries to place data
             Map<String, double[]> data = new HashMap<>();
             data.put("open", new double[days]);
             data.put("high", new double[days]);
             data.put("low", new double[days]);
             data.put("close", new double[days]);
 
-            String urlString = API_URL + "&from=" + startDate + "&to=" + endDate;
+            String urlString = "https://eodhistoricaldata.com/api/eod/AAPL.US?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX"
+                    + "&from=" + startDate + "&to=" + endDate;
             URL url = new URL(urlString);
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
@@ -63,6 +66,7 @@ public class StockPriceDataPlugin implements DataPlugin {
                 String[] details = s.split(",");
                 Date date;
                 try {
+                    //read data according to the date
                     date = format.parse(details[0]);
                     while (i != dates.length && !date.equals(dates[i])) {
                         i++;
@@ -80,6 +84,8 @@ public class StockPriceDataPlugin implements DataPlugin {
             }
             reader.close();
 
+            //on weekends, no data will be provided. We will use the data of last Friday or the following Monday
+            //as the value of the weekend.
             for (double[] d : data.values()) {
                 for (int j = 0; j < d.length; j++) {
                     if (d[j] == 0) {
@@ -111,16 +117,19 @@ public class StockPriceDataPlugin implements DataPlugin {
 
     @Override
     public Map<String, List<String>> getParamOptions() {
+        //no additional params needed for the plugin
         return new HashMap<>();
     }
 
     @Override
     public Map<String, Boolean> areParamsMultiple() {
+        //no additional params needed for the plugin
         return new HashMap<>();
     }
 
     @Override
     public boolean addParam(String param, String option) {
+        //no additional params needed for the plugin
         return false;
     }
 }
