@@ -1,9 +1,14 @@
+import com.github.spotbugs.SpotBugsTask
+
 buildscript {
     repositories {
         mavenCentral()
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.9'
     }
 }
 
@@ -39,6 +44,19 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.6'
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.4'
     compile project(':framework')
+}
+
+apply plugin: 'com.github.spotbugs'
+
+spotbugs {
+    toolVersion = '3.1.8'
+}
+
+// To generate an HTML report instead of XML
+tasks.withType(SpotBugsTask) {
+    reports.xml.enabled = false
+    reports.html.enabled = true
+    ignoreFailures = true
 }
 
 javafx {
