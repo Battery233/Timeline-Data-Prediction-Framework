@@ -9,7 +9,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FrameworkTests {
+public class FrameworkPredictTest {
+
     @Test
     public void testPredict() throws ParseException {
         FrameworkImpl impl = new FrameworkImpl();
