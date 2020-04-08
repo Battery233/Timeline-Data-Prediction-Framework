@@ -19,8 +19,8 @@ public class BrowsePanel extends JPanel {
 
     private final DefaultComboBoxModel<Plugin> model = new DefaultComboBoxModel<>(new Vector<>());
     private final JComboBox<Plugin> comboBox;
-    private PluginPanel parent;
-    private boolean isDataPlugin;
+    private final PluginPanel parent;
+    private final boolean isDataPlugin;
 
     public BrowsePanel(PluginPanel parent, boolean isDataPlugin) {
         this.parent = parent;

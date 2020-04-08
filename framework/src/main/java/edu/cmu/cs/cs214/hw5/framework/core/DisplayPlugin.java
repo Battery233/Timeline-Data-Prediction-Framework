@@ -27,9 +27,9 @@ public interface DisplayPlugin extends Plugin {
     void clearToDisplay();
 
     /**
-     * Generate a Jpanel object which contains the representation of the data
+     * Generate a JPanel object which contains the representation of the data
      *
-     * @return a Jpanel instance which will be added into the GUI frame
+     * @return a JPanel instance which will be added into the GUI frame
      */
     JPanel display();
 }

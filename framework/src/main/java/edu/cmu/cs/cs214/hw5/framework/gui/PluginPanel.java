@@ -20,12 +20,12 @@ import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
 
 public class PluginPanel extends JPanel {
 
-    protected MainPanel parent;
-    protected Framework core;
+    protected final MainPanel parent;
+    protected final Framework core;
     protected BrowsePanel browsePanel;
     protected ParamsPanel paramsPanel;
     protected JLabel statusLabel;
-    protected boolean isDataPlugin;
+    protected final boolean isDataPlugin;
     protected Date startDate, endDate;
     protected Map<String, List<String>> paramOptions = new HashMap<>();
     protected Map<String, Boolean> paramsMultiple = new HashMap<>();

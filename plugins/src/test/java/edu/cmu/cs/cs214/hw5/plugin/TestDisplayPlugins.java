@@ -45,6 +45,18 @@ public class TestDisplayPlugins {
     }
 
     @Test
+    public void testDisplayDataset() throws ParseException {
+        Assert.assertEquals(data, displayData.getOriginalData());
+        Map<String, Double> pred2 = new HashMap<>();
+        pred2.put("RMB", 6.9999999);
+        pred2.put("USD", 3.6677777);
+        Assert.assertEquals(pred2, displayData.getPredictionValue());
+        String str = "2019-06-07";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Assert.assertEquals(format.parse(str), displayData.getPredictionDate());
+    }
+
+    @Test
     public void testStaticDisplay() {
         DisplayPlugin plugin = new StatisticDisplayPlugin();
         plugin.setDataSet(data);

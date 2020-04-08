@@ -20,7 +20,7 @@ import java.util.Map;
  * the open price, close price, highest and lowest price of the day. The free sample API key only works on Apple.
  */
 public final class StockPriceDataPlugin implements DataPlugin {
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     private String startDate = "";
     private String endDate = "";
 

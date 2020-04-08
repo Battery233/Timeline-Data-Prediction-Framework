@@ -84,7 +84,7 @@ public interface Framework {
     void setDisplayPluginOptions();
 
     /**
-     * Process the data extracted from the data plugin and generate a Jpanel to display.
+     * Process the data extracted from the data plugin and generate a JPanel to display.
      *
      * @return A Jpanel for displaying in GUI.
      */

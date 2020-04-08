@@ -16,11 +16,12 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
 
 public class MainPanel extends JPanel implements StatusChangeListener {
 
-    private Framework core;
-    private PluginPanel dataPluginPanel, displayPluginPanel;
-    private JPanel display = new JPanel();
-    private JScrollPane scroll;
-    private JPanel pluginPanel = new JPanel();
+    private final Framework core;
+    private final PluginPanel dataPluginPanel;
+    private final PluginPanel displayPluginPanel;
+    private final JPanel display = new JPanel();
+    private final JScrollPane scroll;
+    private final JPanel pluginPanel = new JPanel();
 
     public MainPanel(Framework framework) {
         core = framework;

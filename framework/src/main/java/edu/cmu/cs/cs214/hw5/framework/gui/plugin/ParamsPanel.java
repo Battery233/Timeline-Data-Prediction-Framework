@@ -60,8 +60,8 @@ public class ParamsPanel extends JPanel {
         Map<String, List<String>> paramsValues = new HashMap<>();
         for (String param: optionLists.keySet()){
             List<String> values = new ArrayList<>();
-            JList<String> jlist = optionLists.get(param);
-            int[] indices = jlist.getSelectedIndices();
+            JList<String> jList = optionLists.get(param);
+            int[] indices = jList.getSelectedIndices();
             List<String> options = paramOptions.get(param);
             for (int idx: indices){
                 values.add(options.get(idx));

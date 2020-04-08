@@ -10,13 +10,13 @@ import java.util.Map;
  */
 public class DisplayDataSet {
     //a DataSet object which contains the original data we get from data plugin
-    private DataSet originalData;
+    private final DataSet originalData;
 
     //a date to indicate the date which we predict the value using the framework
-    private Date predictionDate;
+    private final Date predictionDate;
 
     //a map to store the predicted values for different lines of data on the predictionDate
-    private Map<String, Double> predictionValue;
+    private final Map<String, Double> predictionValue;
 
     /**
      * The constructor of the display data set
