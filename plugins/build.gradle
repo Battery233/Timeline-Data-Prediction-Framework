@@ -76,4 +76,4 @@ jacocoTestReport {
     }
 }
 
-mainClassName = "edu.cmu.cs.cs214.team24.framework.core.FrameworkImpl"
+mainClassName = "edu.cmu.cs.cs214.hw5.Main"
