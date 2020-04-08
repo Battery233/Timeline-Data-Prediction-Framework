@@ -3,8 +3,8 @@ package edu.cmu.cs.cs214.hw5.framework.gui;
 import edu.cmu.cs.cs214.hw5.framework.core.Framework;
 import edu.cmu.cs.cs214.hw5.framework.core.Plugin;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.util.HashMap;
 
 public class DisplayPluginPanel extends PluginPanel {
 

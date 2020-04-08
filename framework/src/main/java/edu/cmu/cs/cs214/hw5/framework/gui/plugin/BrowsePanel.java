@@ -4,8 +4,14 @@ package edu.cmu.cs.cs214.hw5.framework.gui.plugin;
 import edu.cmu.cs.cs214.hw5.framework.core.Plugin;
 import edu.cmu.cs.cs214.hw5.framework.gui.PluginPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import java.awt.Component;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
@@ -33,8 +39,8 @@ public class BrowsePanel extends JPanel {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if(value != null) {
-                    setText(((Plugin)value).name());
+                if (value != null) {
+                    setText(((Plugin) value).name());
                 }
                 return this;
             }
@@ -45,12 +51,12 @@ public class BrowsePanel extends JPanel {
         add(comboBox);
     }
 
-    public void enableSelection(){
+    public void enableSelection() {
         setEnabled(true);
         addComboBoxListener();
     }
 
-    public void disableSelection(){
+    public void disableSelection() {
         setEnabled(false);
         clearComboBoxListener();
     }
@@ -59,16 +65,16 @@ public class BrowsePanel extends JPanel {
         if (plugin.isDataPlugin() == isDataPlugin) model.addElement(plugin);
     }
 
-    private void addComboBoxListener(){
+    private void addComboBoxListener() {
         comboBox.addActionListener(e -> {
             Plugin selected = (Plugin) comboBox.getSelectedItem();
             parent.onPluginChanged(selected);
         });
     }
 
-    private void clearComboBoxListener(){
-        for(ActionListener al : comboBox.getActionListeners() ) {
-            comboBox.removeActionListener( al );
+    private void clearComboBoxListener() {
+        for (ActionListener al : comboBox.getActionListeners()) {
+            comboBox.removeActionListener(al);
         }
     }
 }

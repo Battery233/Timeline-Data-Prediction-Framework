@@ -34,8 +34,8 @@ public class TestDataPlugins {
         assertTrue(cdp.addParam("symbols", "CNY"));
         assertTrue(cdp.addParam("symbols", "USD"));
         assertFalse(cdp.addParam("symbol", "JPY"));
-        assertEquals(2,cdp.getParamOptions().size());
-        assertEquals(2,cdp.areParamsMultiple().size());
+        assertEquals(2, cdp.getParamOptions().size());
+        assertEquals(2, cdp.areParamsMultiple().size());
         assertNotNull(cdp.getData().toString());
         assertEquals(6, cdp.getData().getTimeRange().length);
     }

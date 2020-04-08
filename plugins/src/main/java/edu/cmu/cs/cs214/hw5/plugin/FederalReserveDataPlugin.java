@@ -67,21 +67,15 @@ public final class FederalReserveDataPlugin implements DataPlugin {
 
     @Override
     public DataSet getData() {
-        try {
+        try (BufferedReader br = new BufferedReader(
+                new FileReader("src/main/resources/fred_data.csv", StandardCharsets.UTF_8))) {
             //make sure the period is valid
             if (format.parse("2020-03-31").before(start)) {
                 return null;
             }
 
             //read data from local csv
-            BufferedReader br;
-            try {
-                br = new BufferedReader(new FileReader("src/main/resources/fred_data.csv", StandardCharsets.UTF_8));
-            } catch (FileNotFoundException e2) {
-                br = new BufferedReader(new FileReader("plugins/src/main/resources/fred_data.csv", StandardCharsets.UTF_8));
-            }
             br.readLine();
-
             //set up the data structure to store data.
             int days = DateUtil.dateInterval(start, end);
             Date[] dates = DateUtil.getDateArray(start, end);
@@ -98,7 +92,7 @@ public final class FederalReserveDataPlugin implements DataPlugin {
                 if (currentDate.after(end)) {
                     break;
                 } else if (!start.after(currentDate)) {
-                    for (Map.Entry<Integer,String> e: outputIndexed.entrySet()) {
+                    for (Map.Entry<Integer, String> e : outputIndexed.entrySet()) {
                         int i = e.getKey();
                         data.get(outputIndexed.get(i))[dataIndex] = Double.parseDouble(details[i]);
                     }
