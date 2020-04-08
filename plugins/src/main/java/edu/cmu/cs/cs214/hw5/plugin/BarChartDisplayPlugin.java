@@ -72,7 +72,7 @@ public class BarChartDisplayPlugin implements DisplayPlugin {
         return panel;
     }
 
-    public void initFX(JFXPanel fxPanel) {
+    private void initFX(JFXPanel fxPanel) {
         // This method is invoked on JavaFX thread
         Scene scene = createScene();
         fxPanel.setScene(scene);
@@ -122,6 +122,9 @@ public class BarChartDisplayPlugin implements DisplayPlugin {
 
     @Override
     public boolean addParam(String param, String option) {
+        if (!param.equals("categories")) {
+            return false;
+        }
         if (!toDisplay.containsKey(param)) {
             List<String> list = new ArrayList<>();
             toDisplay.put(param, list);
@@ -130,5 +133,13 @@ public class BarChartDisplayPlugin implements DisplayPlugin {
         list.add(option);
         toDisplay.put(param, list);
         return true;
+    }
+
+    /**
+     * Check if the to display data structure is empty.
+     * @return  true or false
+     */
+    public boolean isToDisplayEmpty() {
+        return toDisplay.size() == 0;
     }
 }

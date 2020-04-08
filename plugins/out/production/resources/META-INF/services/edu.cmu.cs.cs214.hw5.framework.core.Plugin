@@ -1,0 +1,9 @@
+# List of plugins to be registered by framework.
+# Provide fully qualified class names here
+# with one plugin per line.
+edu.cmu.cs.cs214.hw5.plugin.CurrencyDataPlugin
+edu.cmu.cs.cs214.hw5.plugin.StockPriceDataPlugin
+edu.cmu.cs.cs214.hw5.plugin.FederalReserveDataPlugin
+edu.cmu.cs.cs214.hw5.plugin.StatisticDisplayPlugin
+edu.cmu.cs.cs214.hw5.plugin.LineChartDisplayPlugin
+edu.cmu.cs.cs214.hw5.plugin.BarChartDisplayPlugin

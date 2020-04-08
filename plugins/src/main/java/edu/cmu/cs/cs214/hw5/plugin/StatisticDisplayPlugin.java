@@ -125,13 +125,13 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
         }
     }
 
-    public double tTest() {
+    private double tTest() {
         Map<String, double[]> map = data.getOriginalData().getData();
         double res = testEnvir.pairedTTest(map.get(option1), map.get((option2)));
         return res;
     }
 
-    public Map<String, Double> getStatisticData(String input) {
+    private Map<String, Double> getStatisticData(String input) {
         Map<String, Double> res = new HashMap<>();
         Map<String, double[]> map = data.getOriginalData().getData();
         double[] testData = map.get(input);

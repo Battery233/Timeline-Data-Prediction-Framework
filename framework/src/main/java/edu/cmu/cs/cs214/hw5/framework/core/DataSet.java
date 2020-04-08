@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * A class represents the data we extracted from the data plugin
+ */
 public class DataSet {
     private final Date[] timeRange;
     private final Map<String, double[]> data;
