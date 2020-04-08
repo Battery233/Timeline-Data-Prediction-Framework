@@ -34,6 +34,11 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
     }
 
     @Override
+    public void clearToDisplay() {
+        return;
+    }
+
+    @Override
     public JPanel display() {
         JPanel panel = new JPanel(new BorderLayout());
         String[] columnNames = new String[] {"Categories", option1, option2};

@@ -29,6 +29,7 @@ public class FrameworkImpl implements Framework {
     @Override
     public void setCurrentDisplayPlugin(Plugin plugin) {
         currentDisplayPlugin = (DisplayPlugin) plugin;
+        currentDisplayPlugin.clearToDisplay();
     }
 
 
