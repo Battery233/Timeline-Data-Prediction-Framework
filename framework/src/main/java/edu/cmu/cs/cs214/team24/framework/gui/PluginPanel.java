@@ -6,6 +6,7 @@ import edu.cmu.cs.cs214.team24.framework.gui.plugin.BrowsePanel;
 import edu.cmu.cs.cs214.team24.framework.gui.plugin.ParamsPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,9 +35,10 @@ public class PluginPanel extends JPanel {
     }
 
     protected void addStatusPanel(){
-        String statusText = "Data not ready, please configure data parameters and get data.";
-        if (!isDataPlugin) statusText = "Please configure display parameters and display.";
+        String statusText = "Please choose a data plugin.";
+        if (!isDataPlugin) statusText = "Please get data before proceed to choose a display plugin.";
         statusLabel = new JLabel(statusText);
+        statusLabel.setForeground(Color.red);
         JPanel statusPanel = new JPanel();
         statusPanel.add(statusLabel);
         add(statusPanel);
@@ -61,6 +63,12 @@ public class PluginPanel extends JPanel {
         JButton b = new JButton(buttonText);
         b.addActionListener(e -> {
             Map<String, List<String>> paramValues = paramsPanel.getParamsValues();
+            for (List<String> val: paramValues.values()) {
+                if (val.isEmpty()) {
+                    statusLabel.setText("Please configure all parameters before proceed.");
+                    return;
+                }
+            }
             boolean configSuccess = core.setPluginParameters(
                     isDataPlugin, paramValues, startDate, endDate);
             if (!configSuccess) {
@@ -71,6 +79,7 @@ public class PluginPanel extends JPanel {
                     boolean getDataSuccess = core.getData();
                     if (getDataSuccess) {
                         statusLabel.setText("Data ready. Proceed to display data.");
+                        statusLabel.setForeground(Color.blue);
                         parent.onGetDataSuccess();
                     } else {
                         statusLabel.setText("Get data failed. Please modify your configuration.");
@@ -79,6 +88,8 @@ public class PluginPanel extends JPanel {
                 else {
                     JPanel newDisplay = core.processAndDisplay();
                     parent.onDisplayChanged(newDisplay);
+                    statusLabel.setText("Display panel on the left.");
+                    statusLabel.setForeground(Color.blue);
                 }
             }
         });
