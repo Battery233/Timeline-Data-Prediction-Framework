@@ -16,7 +16,6 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestDataPlugins {
@@ -25,7 +24,7 @@ public class TestDataPlugins {
     @Test
     public void testCurrencyDataPlugin() throws ParseException {
         DataPlugin cdp = new CurrencyDataPlugin();
-        assertEquals("Currency Data plugin (JSON)",cdp.name());
+        assertEquals("Currency Data plugin (JSON)", cdp.name());
         assertTrue(cdp.isDataPlugin());
         Date bt = format.parse("2020-03-20");
         Date et = format.parse("2020-03-25");
@@ -34,16 +33,21 @@ public class TestDataPlugins {
         assertTrue(cdp.addParam("base", "GBP"));
         assertTrue(cdp.addParam("symbols", "CNY"));
         assertTrue(cdp.addParam("symbols", "USD"));
+        assertFalse(cdp.addParam("symbol", "JPY"));
         assertNotNull(cdp.getData().toString());
+        assertEquals(6, cdp.getData().getTimeRange().length);
+
     }
 
-    @Test
+    @Test(expected = ParseException.class)
     public void testCurrencyPluginExceptions() throws ParseException {
         DataPlugin cdp = new CurrencyDataPlugin();
-        assertFalse(cdp.addParam("error","foo"));
+        assertFalse(cdp.addParam("error", "foo"));
         Date bt = format.parse("2020-03-25");
         Date et = format.parse("2020-03-20");
         assertFalse(cdp.setTimePeriod(bt, et));
+        Date error = format.parse("201a-131-02");
+        assertFalse(cdp.setTimePeriod(bt, error));
     }
 
     @Test
@@ -52,8 +56,12 @@ public class TestDataPlugins {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date bt = format.parse("2020-02-13");
         Date et = format.parse("2020-03-17");
-        stockPriceDataPlugin.setTimePeriod(bt, et);
-        System.out.println(stockPriceDataPlugin.getData());
+        assertEquals("Stock price data of Apple (CSV)", stockPriceDataPlugin.name());
+        assertTrue(stockPriceDataPlugin.isDataPlugin());
+        assertFalse(stockPriceDataPlugin.setTimePeriod(et, bt));
+        assertTrue(stockPriceDataPlugin.setTimePeriod(bt, et));
+        assertNotNull(stockPriceDataPlugin.getData());
+        assertEquals(34, stockPriceDataPlugin.getData().getTimeRange().length);
     }
 
     @Test
@@ -63,7 +71,8 @@ public class TestDataPlugins {
         framework.setCurrentDataPlugin(plugin);
         assertEquals("{Data Type=[Treasury Bill Secondary Market Rate, Treasury Constant Maturity Rate, " +
                 "Effective Federal Funds Rate, Forward Inflation Expectation Rate, " +
-                "Bank Prime Loan Rate, Breakeven Inflation Rate]}",plugin.getParamOptions().toString());
+                "Bank Prime Loan Rate, Breakeven Inflation Rate]}", plugin.getParamOptions().toString());
+        assertEquals("(Before Mar. 2020) Federal Reserve Interest Rates Data", plugin.name());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date bt = format.parse("2020-03-03");
         Date et = format.parse("2020-04-02");
@@ -72,8 +81,20 @@ public class TestDataPlugins {
         list.add("Treasury Constant Maturity Rate");
         list.add("Bank Prime Loan Rate");
         params.put("Data Type", list);
+        assertFalse(plugin.addParam("Data", "Interest"));
+        assertTrue(plugin.areParamsMultiple().get("Data Type"));
+        assertEquals(1, plugin.getParamOptions().size());
         assertTrue(framework.setPluginParameters(true, params, bt, et));
-        System.out.println(plugin.getData());
+        assertNotNull(plugin.getData());
+        assertEquals(29, plugin.getData().getTimeRange().length);
+    }
+
+    @Test
+    public void testUtil() throws ParseException {
+        Date bt = format.parse("2020-03-29");
+        Date et = format.parse("2020-04-02");
+        assertEquals(5, DateUtil.dateInterval(bt, et));
+        assertEquals(5, DateUtil.getDateArray(bt, et).length);
     }
 
     @Test

@@ -4,14 +4,18 @@ import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
 
 import javax.swing.JPanel;
-import java.util.*;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class FrameworkImpl implements Framework {
+    private static long SECONDS_PER_DAY = 86400000;
     private DataPlugin currentDataPlugin;
     private DisplayPlugin currentDisplayPlugin;
     private DataSet dataset;
     private StatusChangeListener statusChangeListener;
-    private static long SECONDS_PER_DAY = 86400000;
 
     public FrameworkImpl() {
     }

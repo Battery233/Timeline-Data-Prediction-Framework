@@ -6,6 +6,7 @@ import edu.cmu.cs.cs214.hw5.framework.core.DataSet;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -128,7 +129,7 @@ public class CurrencyDataPlugin implements DataPlugin {
                 URL url = new URL(API_URL + "start_at=" + startDate + "&end_at=" + endDate + "&base=" + base + "&symbols=" + symbols);
                 System.out.println(url);
                 String content;
-                try (Scanner scanner = new Scanner(url.openStream())) {
+                try (Scanner scanner = new Scanner(url.openStream(), StandardCharsets.UTF_8)) {
                     content = scanner.useDelimiter("\\A").next();
                 }
                 System.out.println(content);
