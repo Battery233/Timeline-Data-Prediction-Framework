@@ -1,5 +1,7 @@
 # Timeline Data Prediction Framework - Team 24
 
+[![Build Status](https://travis-ci.com/CMU-17-214/Team24.svg?token=ENU3P6jCqqNLsqwDwdUN&branch=master)](https://travis-ci.com/CMU-17-214/Team24)
+
 ## Overview
 This framework is designed to manage dataset with timeline, and predict data for the next time unit (e.g. a day) 
 using Apache Math library polynomial regression fitter. This fitter is more suitable for quickly fitting two-dimension 
