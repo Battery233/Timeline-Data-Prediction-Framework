@@ -6,3 +6,4 @@ edu.cmu.cs.cs214.hw5.plugin.StockPriceDataPlugin
 edu.cmu.cs.cs214.hw5.plugin.FederalReserveDataPlugin
 edu.cmu.cs.cs214.hw5.plugin.StatisticDisplayPlugin
 edu.cmu.cs.cs214.hw5.plugin.LineChartDisplayPlugin
+edu.cmu.cs.cs214.hw5.plugin.BarChartDisplayPlugin
