@@ -3,13 +3,32 @@ package edu.cmu.cs.cs214.hw5.plugin;
 import java.util.Calendar;
 import java.util.Date;
 
-public class dateUtil {
+/**
+ * Util class for date processing.
+ */
+public class DateUtil {
 
-    public static int dateInterval(Date start, Date end) {
-        double SECONDS_PER_DAY = 86400000;
-        return (int) ((Math.round((double) (end.getTime() - start.getTime()) / SECONDS_PER_DAY)) + 1);
+    private DateUtil() {
     }
 
+    /**
+     * calculate the interval between two days (both ends included).
+     *
+     * @param start the start date
+     * @param end   the end date
+     * @return the interval days
+     */
+    public static int dateInterval(Date start, Date end) {
+        return (int) ((Math.round((double) (end.getTime() - start.getTime()) / 86400000)) + 1);
+    }
+
+    /**
+     * tool to get a consecutive date array.
+     *
+     * @param start the start date
+     * @param end   the end date
+     * @return an date array
+     */
     public static Date[] getDateArray(Date start, Date end) {
         int days = dateInterval(start, end);
         Date[] dates = new Date[days];

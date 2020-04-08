@@ -4,7 +4,6 @@ import edu.cmu.cs.cs214.hw5.framework.core.DataPlugin;
 import edu.cmu.cs.cs214.hw5.framework.core.DataSet;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,12 +15,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FederalReserveDataPlugin implements DataPlugin {
+/**
+ * The plugin to get economy data from the FRED (local database). The user can get up
+ * to 6 types of data from 2009 to March 2020.
+ */
+public final class FederalReserveDataPlugin implements DataPlugin {
 
     private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     private Date start;
     private Date end;
+    //types the user can choose
     private Map<String, Integer> optionIndexes;
+    //types the user chose
     private Map<Integer, String> outputIndexed;
 
 
@@ -42,6 +47,7 @@ public class FederalReserveDataPlugin implements DataPlugin {
             if (!start.before(end)) {
                 throw new IllegalArgumentException("start date should be earlier than end date!");
             }
+            //make sure the dates do not exceed the limit
             Date earliest = format.parse("2009-01-01");
             Date latest = format.parse("2020-03-31");
             if (start.before(earliest)) {
@@ -61,19 +67,23 @@ public class FederalReserveDataPlugin implements DataPlugin {
     @Override
     public DataSet getData() {
         try {
-            if(format.parse("2020-03-31").before(start)){
+            //make sure the period is valid
+            if (format.parse("2020-03-31").before(start)) {
                 return null;
             }
+
+            //read data from local csv
             BufferedReader br;
-            try{
+            try {
                 br = new BufferedReader(new FileReader("src/main/resources/fred_data.csv"));
-            }catch (FileNotFoundException e2){
+            } catch (FileNotFoundException e2) {
                 br = new BufferedReader(new FileReader("plugins/src/main/resources/fred_data.csv"));
             }
             br.readLine();
-            int days = dateUtil.dateInterval(start, end);
-            Date[] dates = dateUtil.getDateArray(start, end);
 
+            //set up the data structure to store data.
+            int days = DateUtil.dateInterval(start, end);
+            Date[] dates = DateUtil.getDateArray(start, end);
             Map<String, double[]> data = new HashMap<>();
             for (String s : outputIndexed.values()) {
                 data.put(s, new double[days]);
@@ -83,6 +93,7 @@ public class FederalReserveDataPlugin implements DataPlugin {
             while ((line = br.readLine()) != null) {
                 String[] details = line.split(",");
                 Date currentDate = format.parse(details[0]);
+                //parse and store the data
                 if (currentDate.after(end)) {
                     break;
                 } else if (!start.after(currentDate)) {
@@ -135,6 +146,7 @@ public class FederalReserveDataPlugin implements DataPlugin {
             return false;
         } else {
             if (optionIndexes.containsKey(option)) {
+                //add param if valid
                 outputIndexed.put(optionIndexes.get(option), option);
                 return true;
             } else {

@@ -16,35 +16,17 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestDataPlugins {
-
-    @Test
-    public void testPluginFromFramework() throws ParseException {
-        Framework framework = new FrameworkImpl();
-        DataPlugin cdp = new CurrencyDataPlugin();
-        framework.setCurrentDataPlugin(cdp);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date bt = format.parse("2020-02-13");
-        Date et = format.parse("2020-03-17");
-        Map<String, List<String>> params = new HashMap<>();
-        List<String> list = new ArrayList<>();
-        list.add("CNY");
-        list.add("USD");
-        params.put("symbols", list);
-        List<String> list2 = new ArrayList<>();
-        list2.add("GBP");
-        params.put("base", list2);
-        assertTrue(framework.setPluginParameters(true, params, bt, et));
-        assertTrue(framework.getData());
-        System.out.println(cdp.getData());
-    }
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @Test
     public void testCurrencyDataPlugin() throws ParseException {
         DataPlugin cdp = new CurrencyDataPlugin();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        assertEquals("Currency Data plugin (JSON)",cdp.name());
+        assertTrue(cdp.isDataPlugin());
         Date bt = format.parse("2020-03-20");
         Date et = format.parse("2020-03-25");
         assertFalse(cdp.setTimePeriod(bt, bt));
@@ -53,6 +35,15 @@ public class TestDataPlugins {
         assertTrue(cdp.addParam("symbols", "CNY"));
         assertTrue(cdp.addParam("symbols", "USD"));
         assertNotNull(cdp.getData().toString());
+    }
+
+    @Test
+    public void testCurrencyPluginExceptions() throws ParseException {
+        DataPlugin cdp = new CurrencyDataPlugin();
+        assertFalse(cdp.addParam("error","foo"));
+        Date bt = format.parse("2020-03-25");
+        Date et = format.parse("2020-03-20");
+        assertFalse(cdp.setTimePeriod(bt, et));
     }
 
     @Test
@@ -83,5 +74,26 @@ public class TestDataPlugins {
         params.put("Data Type", list);
         assertTrue(framework.setPluginParameters(true, params, bt, et));
         System.out.println(plugin.getData());
+    }
+
+    @Test
+    public void testPluginFromFramework() throws ParseException {
+        Framework framework = new FrameworkImpl();
+        DataPlugin cdp = new CurrencyDataPlugin();
+        framework.setCurrentDataPlugin(cdp);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date bt = format.parse("2020-02-13");
+        Date et = format.parse("2020-03-17");
+        Map<String, List<String>> params = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        list.add("CNY");
+        list.add("USD");
+        params.put("symbols", list);
+        List<String> list2 = new ArrayList<>();
+        list2.add("GBP");
+        params.put("base", list2);
+        assertTrue(framework.setPluginParameters(true, params, bt, et));
+        assertTrue(framework.getData());
+        System.out.println(cdp.getData());
     }
 }

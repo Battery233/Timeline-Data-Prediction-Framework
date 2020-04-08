@@ -15,17 +15,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * The plugin for getting currency exchange rate. The user can get the data of several currencies in a time range.
+ * The default currency base is USD.
+ */
 public class CurrencyDataPlugin implements DataPlugin {
-    private static String ALL_CURRENCY = "CAD,HKD,ISK,PHP,DKK,HUF,CZK,GBP,RON,SEK,IDR,INR,BRL,RUB,HRK,JPY,THB,CHF,EUR,MYR,BGN,TRY,CNY,NOK,NZD,ZAR,USD,MXN,SGD,AUD,ILS,KRW,PLN";
+    //all type of currencies the API support, according to the official documentation
+    private static String ALL_CURRENCY = "CAD,HKD,ISK,PHP,DKK,HUF,CZK,GBP,RON,SEK,IDR,INR,BRL,RUB,HRK,JPY," +
+            "THB,CHF,EUR,MYR,BGN,TRY,CNY,NOK,NZD,ZAR,USD,MXN,SGD,AUD,ILS,KRW,PLN";
+    //the base url of the api
     private static String API_URL = "https://api.exchangeratesapi.io/history?";
+    //the map to store all possible params the user can set
     private Map<String, List<String>> paramOptions = new HashMap<>();
+    //the map to indicate if the parameter can have multiple values (e.g., several different currencies)
     private Map<String, Boolean> isParamsMultiple = new HashMap<>();
     private String startDate = "";
     private String endDate;
-    private String base = "USD"; // default base
-    private String symbols = "";
+    private String base = "USD"; // default base currency
+    private String symbols = ""; // the currencies to be calculated
 
     public CurrencyDataPlugin() {
+        //set params options for this plugin
         List<String> options = Arrays.asList(ALL_CURRENCY.split(","));
         paramOptions.put("base", options);
         isParamsMultiple.put("base", false);
@@ -57,6 +67,7 @@ public class CurrencyDataPlugin implements DataPlugin {
     @Override
     public boolean addParam(String param, String option) {
         if (param.equals("base")) {
+            //set the base currency, if valid.
             if (validSymbol(option)) {
                 base = option;
                 return true;
@@ -67,6 +78,7 @@ public class CurrencyDataPlugin implements DataPlugin {
             if (!validSymbol(option)) {
                 return false;
             }
+            //set or append the symbol list string
             if (symbols.equals("")) {
                 symbols = option;
             } else {
@@ -78,6 +90,7 @@ public class CurrencyDataPlugin implements DataPlugin {
         }
     }
 
+    //validate the symbol
     private boolean validSymbol(String symbol) {
         for (String s : ALL_CURRENCY.split(",")) {
             if (s.equals(symbol)) {
@@ -96,8 +109,6 @@ public class CurrencyDataPlugin implements DataPlugin {
             if (!start.before(end)) {
                 throw new IllegalArgumentException("start date should be earlier than end date!");
             }
-            System.out.println("Start date = " + startDate);
-            System.out.println("End date = " + endDate);
             return true;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -109,9 +120,11 @@ public class CurrencyDataPlugin implements DataPlugin {
     @Override
     public DataSet getData() {
         if (startDate.equals("")) {
+            //date is necessary for this api
             return null;
         } else {
             try {
+                //create the url
                 URL url = new URL(API_URL + "start_at=" + startDate + "&end_at=" + endDate + "&base=" + base + "&symbols=" + symbols);
                 System.out.println(url);
                 String content;
@@ -127,6 +140,7 @@ public class CurrencyDataPlugin implements DataPlugin {
         }
     }
 
+    //parse the json to into dataset for the framework
     private DataSet parseJSON(String s) throws ParseException {
         Gson gson = new Gson();
         CurrencyJSONReader.JSONRates JSONData = gson.fromJson(s, CurrencyJSONReader.JSONRates.class);
@@ -135,8 +149,9 @@ public class CurrencyDataPlugin implements DataPlugin {
         Date start = format.parse(JSONData.start_at);
         Date end = format.parse(JSONData.end_at);
 
-        int days = dateUtil.dateInterval(start, end);
-        Date[] dates = dateUtil.getDateArray(start, end);
+        //set the array to represent dates
+        int days = DateUtil.dateInterval(start, end);
+        Date[] dates = DateUtil.getDateArray(start, end);
 
         Map<String, double[]> data = new HashMap<>();
         for (Map<String, Double> e : JSONData.rates.values()) {
@@ -146,6 +161,7 @@ public class CurrencyDataPlugin implements DataPlugin {
             break;
         }
 
+        //add the detailed data to the map
         for (Map.Entry<String, Map<String, Double>> jsr : JSONData.rates.entrySet()) {
             Date date = format.parse(jsr.getKey());
             int i;
@@ -159,6 +175,8 @@ public class CurrencyDataPlugin implements DataPlugin {
             }
         }
 
+        //on weekends, no data will be provided. We will use the data of last Friday or the following Monday
+        //as the value of the weekend.
         for (double[] d : data.values()) {
             for (int j = 0; j < d.length; j++) {
                 if (d[j] == 0) {
