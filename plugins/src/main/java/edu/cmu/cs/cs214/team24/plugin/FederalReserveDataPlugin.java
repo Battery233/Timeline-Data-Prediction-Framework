@@ -24,7 +24,7 @@ public class FederalReserveDataPlugin implements DataPlugin {
     private Map<Integer, String> outputIndexed;
 
 
-    FederalReserveDataPlugin() {
+    public FederalReserveDataPlugin() {
         optionIndexes = new HashMap<>();
         outputIndexed = new HashMap<>();
         optionIndexes.put("Effective Federal Funds Rate", 1);
@@ -116,7 +116,7 @@ public class FederalReserveDataPlugin implements DataPlugin {
     @Override
     public Map<String, Boolean> areParamsMultiple() {
         Map<String, Boolean> result = new HashMap<>();
-        result.put("Date Type", true);
+        result.put("Data Type", true);
         return result;
     }
 
