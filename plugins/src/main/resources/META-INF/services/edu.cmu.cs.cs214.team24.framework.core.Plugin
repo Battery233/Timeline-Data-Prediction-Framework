@@ -2,6 +2,7 @@
 # Provide fully qualified class names here
 # with one plugin per line.
 edu.cmu.cs.cs214.team24.plugin.CurrencyDataPlugin
-edu.cmu.cs.cs214.team24.plugin.StatisticDisplayPlugin
 edu.cmu.cs.cs214.team24.plugin.StockPriceDataPlugin
+edu.cmu.cs.cs214.team24.plugin.FederalReserveDataPlugin
+edu.cmu.cs.cs214.team24.plugin.StatisticDisplayPlugin
 edu.cmu.cs.cs214.team24.plugin.LineChartDisplayPlugin

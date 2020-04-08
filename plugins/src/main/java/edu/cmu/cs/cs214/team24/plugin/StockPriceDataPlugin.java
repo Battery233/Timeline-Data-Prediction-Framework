@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,15 +43,8 @@ public class StockPriceDataPlugin implements DataPlugin {
             Date start = format.parse(startDate);
             Date end = format.parse(endDate);
 
-            int days = (int) ((Math.round((double) (end.getTime() - start.getTime()) / 86400000.0)) + 1);
-
-            Date[] dates = new Date[days];
-            Calendar calendar = Calendar.getInstance();
-            for (int i = 0; i < days; i++) {
-                calendar.setTime(start);
-                calendar.add(Calendar.DATE, i);
-                dates[i] = calendar.getTime();
-            }
+            int days = dateUtil.dateInterval(start, end);
+            Date[] dates = dateUtil.getDateArray(start, end);
 
             Map<String, double[]> data = new HashMap<>();
             data.put("open", new double[days]);
