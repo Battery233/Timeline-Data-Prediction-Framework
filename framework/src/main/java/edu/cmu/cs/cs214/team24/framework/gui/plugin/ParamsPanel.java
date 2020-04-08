@@ -36,7 +36,7 @@ public class ParamsPanel extends JPanel {
 
         JList<String> optionList = new JList<>(options.toArray(new String[0]));
         if (!isMultiple) optionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        else optionList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        else optionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         MouseListener mouseListener = new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int position = optionList.locationToIndex(e.getPoint());
