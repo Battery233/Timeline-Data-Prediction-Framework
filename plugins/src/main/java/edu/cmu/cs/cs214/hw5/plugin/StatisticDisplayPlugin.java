@@ -25,10 +25,10 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
     private String option2;
     private DisplayDataSet data;
     private Set<String> options;
-    private TTest testEnvir;
+    private TTest testEnvironment;
 
     public StatisticDisplayPlugin() {
-        testEnvir = new TTest();
+        testEnvironment = new TTest();
     }
 
     @Override
@@ -134,7 +134,7 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
 
     private double tTest() {
         Map<String, double[]> map = data.getOriginalData().getData();
-        return testEnvir.pairedTTest(map.get(option1), map.get((option2)));
+        return testEnvironment.pairedTTest(map.get(option1), map.get((option2)));
     }
 
     private Map<String, Double> getStatisticData(String input) {

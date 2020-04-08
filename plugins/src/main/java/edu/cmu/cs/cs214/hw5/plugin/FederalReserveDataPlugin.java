@@ -26,9 +26,9 @@ public final class FederalReserveDataPlugin implements DataPlugin {
     private Date start;
     private Date end;
     //types the user can choose
-    private Map<String, Integer> optionIndexes;
+    private final Map<String, Integer> optionIndexes;
     //types the user chose
-    private Map<Integer, String> outputIndexed;
+    private final Map<Integer, String> outputIndexed;
 
 
     public FederalReserveDataPlugin() {

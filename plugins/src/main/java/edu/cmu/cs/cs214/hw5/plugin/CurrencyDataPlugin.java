@@ -22,12 +22,12 @@ import java.util.Scanner;
  */
 public class CurrencyDataPlugin implements DataPlugin {
     //all type of currencies the API support, according to the official documentation
-    private static String ALL_CURRENCY = "CAD,HKD,ISK,PHP,DKK,HUF,CZK,GBP,RON,SEK,IDR,INR,BRL,RUB,HRK,JPY," +
+    private static final String ALL_CURRENCY = "CAD,HKD,ISK,PHP,DKK,HUF,CZK,GBP,RON,SEK,IDR,INR,BRL,RUB,HRK,JPY," +
             "THB,CHF,EUR,MYR,BGN,TRY,CNY,NOK,NZD,ZAR,USD,MXN,SGD,AUD,ILS,KRW,PLN";
     //the map to store all possible params the user can set
-    private Map<String, List<String>> paramOptions = new HashMap<>();
+    private final Map<String, List<String>> paramOptions = new HashMap<>();
     //the map to indicate if the parameter can have multiple values (e.g., several different currencies)
-    private Map<String, Boolean> isParamsMultiple = new HashMap<>();
+    private final Map<String, Boolean> isParamsMultiple = new HashMap<>();
     private String startDate = "";
     private String endDate;
     private String base = "USD"; // default base currency

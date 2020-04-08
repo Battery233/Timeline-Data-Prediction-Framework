@@ -22,7 +22,7 @@ A display plugin for this framework should provide a visualization method for th
 Multiple datasets and their predictions configured by the user in the data plugin form the input of each display plugin.  
 For example:  
 Given the datasets 1-3 configured from the above step, the user can choose two datasets dataset1 and dataset2.
-Linechart display plugin will then draw two lines with their predictions over the same time period on the same graph.
+Line chart display plugin will then draw two lines with their predictions over the same time period on the same graph.
 
 ###  User Interface
 Start by inserting Data Plugins and Display Plugins in edu.cmu.cs.cs214.hw5.plugin  

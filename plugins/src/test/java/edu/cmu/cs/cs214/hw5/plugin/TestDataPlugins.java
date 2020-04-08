@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestDataPlugins {
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @Test
     public void testCurrencyDataPlugin() throws ParseException {
