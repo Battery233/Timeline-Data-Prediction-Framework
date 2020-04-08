@@ -7,25 +7,26 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import javax.swing.*;
 import java.util.*;
 
-public class LineChartDisplayPlugin implements DisplayPlugin {
+public class BarChartDisplayPlugin implements DisplayPlugin {
 
-    private Map<String, List<String>> toDisplay;
     private DisplayDataSet data;
+    private Map<String, List<String>> toDisplay;
     private Set<String> options;
 
-    public LineChartDisplayPlugin() {
+
+    public BarChartDisplayPlugin() {
         toDisplay = new HashMap<>();
     }
 
     @Override
-    public void setDataSet(DataSet metaData){
+    public void setDataSet(DataSet metaData) {
         this.options = metaData.getData().keySet();
     }
 
@@ -36,8 +37,9 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
 
     @Override
     public JPanel display() {
+
         JPanel panel = new JPanel();
-        JFrame frame = new JFrame("Line Chart");
+        JFrame frame = new JFrame("Bar Chart");
         final JFXPanel fxPanel = new JFXPanel();
         frame.add(fxPanel);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -65,28 +67,23 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
     private Scene createScene() {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Day");
-        final LineChart<String,Number> lineChart = new LineChart<>(xAxis,yAxis);
-        List<String> list = toDisplay.get("toAdd");
+        xAxis.setLabel("Category");
+        BarChart<String,Number> barChart = new BarChart<>(xAxis,yAxis);
+        List<String> list = toDisplay.get("categories");
         for (String s : list) {
             XYChart.Series series = new XYChart.Series();
             series.setName(s);
-            double[] rowData = data.getOriginalData().getData().get(s);
-            Date[] dates = data.getOriginalData().getTimeRange();
-            for (int i = 0; i < dates.length; i++) {
-                series.getData().add(new XYChart.Data(dates[i].toString(), rowData[i]));
-            }
-            series.getData().add(new XYChart.Data(data.getPredictionDate().toString() + " (!!!This is the prediction value!!!)", data.getPredictionValue().get(s)));
-            lineChart.getData().add(series);
+            series.getData().add(new XYChart.Data(" !!!This is the prediction value!!!", data.getPredictionValue().get(s)));
+            barChart.getData().add(series);
         }
 
-        Scene scene  = new Scene(lineChart,800,600);
+        Scene scene  = new Scene(barChart,800,600);
         return scene;
     }
 
     @Override
     public String name() {
-        return "Line Chart Display Plugin";
+        return "Bar Chart Display Plugin";
     }
 
     @Override
@@ -97,15 +94,15 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
     @Override
     public Map<String, List<String>> getParamOptions() {
         Map<String, List<String>> map = new HashMap<>();
-        List<String> optionsList = new ArrayList<>(options);
-        map.put("toAdd", optionsList);
+        List<String> optionList = new ArrayList<>(options);
+        map.put("categories", optionList);
         return map;
     }
 
     @Override
     public Map<String, Boolean> areParamsMultiple() {
         Map<String, Boolean> map = new HashMap<>();
-        map.put("toAdd", true);
+        map.put("categories", true);
         return map;
     }
 

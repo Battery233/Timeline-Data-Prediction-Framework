@@ -40,7 +40,7 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
         Map<String, Double> map1 = getStatisticData(option1);
         Map<String, Double> map2 = getStatisticData(option2);
         Object[][] rowData = {
-                {"Number", map1.get("N"), map2.get("N")},
+                {"Sample Number", map1.get("N"), map2.get("N")},
                 {"Mean", map1.get("Mean"), map2.get("Mean")},
                 {"Median", map1.get("Median"), map2.get("Median")},
                 {"StandardDev", map1.get("SD"), map2.get("SD")}
