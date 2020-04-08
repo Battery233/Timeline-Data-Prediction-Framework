@@ -8,5 +8,7 @@ public interface DisplayPlugin extends Plugin{
 
     void setDisplayDataSet(DisplayDataSet data);
 
+    void clearToDisplay();
+
     JPanel display();
 }

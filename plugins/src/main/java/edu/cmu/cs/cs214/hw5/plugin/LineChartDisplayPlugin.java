@@ -12,13 +12,16 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class LineChartDisplayPlugin implements DisplayPlugin {
 
     private Map<String, List<String>> toDisplay;
     private DisplayDataSet data;
     private Set<String> options;
+    private JFrame frame;
 
     public LineChartDisplayPlugin() {
         toDisplay = new HashMap<>();
@@ -35,13 +38,23 @@ public class LineChartDisplayPlugin implements DisplayPlugin {
     }
 
     @Override
+    public void clearToDisplay() {
+        toDisplay = new HashMap<>();
+    }
+
+    @Override
     public JPanel display() {
         JPanel panel = new JPanel();
-        JFrame frame = new JFrame("Line Chart");
-        final JFXPanel fxPanel = new JFXPanel();
-        frame.add(fxPanel);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setVisible(true);
+        if (frame != null) {
+            frame.setVisible(false);
+        }
+        JFrame newFrame = new JFrame("Line Chart");
+        JFXPanel fxPanel = new JFXPanel();
+        newFrame.add(fxPanel);
+        newFrame.setPreferredSize(new Dimension(800, 800));
+        newFrame.pack();
+        newFrame.setVisible(true);
+        frame = newFrame;
 
         Platform.runLater(new Runnable() {
             @Override
