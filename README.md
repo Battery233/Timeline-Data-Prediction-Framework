@@ -14,7 +14,7 @@ With the configuration, data plugin can then grab the multiple datasets ready to
 For example:  
 Dataset1: base USD, currency of CAD over 2020-01-05 t 2020-03-02  
 Dataset2: base USD, currency of EUR over 2020-01-05 t 2020-03-02  
-Dataset2: base USD, currency of CNY over 2020-01-05 t 2020-03-02  
+Dataset3: base USD, currency of CNY over 2020-01-05 t 2020-03-02  
 The framework will then predict the next time unit of each dataset above.
 
 ###  Display Plugin
