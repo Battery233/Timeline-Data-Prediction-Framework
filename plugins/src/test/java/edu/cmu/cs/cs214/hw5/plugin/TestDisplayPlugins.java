@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -70,9 +69,6 @@ public class TestDisplayPlugins {
         Assert.assertEquals(expected3, true);
         Assert.assertEquals(expected4, true);
         Assert.assertEquals(expected5, false);
-
-        JPanel expected6 = plugin.display();
-        Assert.assertTrue(expected6 != null);
     }
 
     @Test
@@ -102,9 +98,6 @@ public class TestDisplayPlugins {
         Assert.assertEquals(expected3, true);
         Assert.assertEquals(expected4, true);
         Assert.assertEquals(expected5, false);
-
-        JPanel expected6 = plugin.display();
-        Assert.assertTrue(expected6 != null);
 
         plugin.clearToDisplay();
         LineChartDisplayPlugin lineChart = (LineChartDisplayPlugin) plugin;
@@ -140,12 +133,9 @@ public class TestDisplayPlugins {
         Assert.assertEquals(expected4, true);
         Assert.assertEquals(expected5, false);
 
-        JPanel expected6 = plugin.display();
-        Assert.assertTrue(expected6 != null);
-
         plugin.clearToDisplay();
-        BarChartDisplayPlugin lineChart = (BarChartDisplayPlugin) plugin;
-        boolean expected7 = lineChart.isToDisplayEmpty();
+        BarChartDisplayPlugin barChart = (BarChartDisplayPlugin) plugin;
+        boolean expected7 = barChart.isToDisplayEmpty();
         Assert.assertTrue(expected7);
     }
 }
