@@ -36,7 +36,8 @@ public class DisplayPluginPanel extends PluginPanel {
         core.setDisplayPluginOptions();
         retrieveParams();
         refreshParams();
-        statusLabel.setText("Please configure display parameters and display.");
+        statusLabel.setText("Please configure display parameters and display. " +
+                "All of the followings are single selection.");
         statusLabel.setForeground(Color.red);
     }
 

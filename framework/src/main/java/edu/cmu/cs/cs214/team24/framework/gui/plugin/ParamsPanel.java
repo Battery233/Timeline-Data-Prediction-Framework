@@ -11,6 +11,9 @@ import java.awt.event.MouseListener;
 import java.util.*;
 import java.util.List;
 
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
+
 public class ParamsPanel extends JPanel {
 
     private Map<String, JList<String>> optionLists = new HashMap<>();
@@ -26,6 +29,10 @@ public class ParamsPanel extends JPanel {
         paramPanel.setLayout(new BoxLayout(paramPanel,BoxLayout.PAGE_AXIS));
         JLabel paramLabel = new JLabel(param);
         paramPanel.add(paramLabel);
+        String selectionText = "(single selection)";
+        if (isMultiple) selectionText = "(multiple selection)";
+        JLabel selectionLabel = new JLabel(selectionText);
+        paramPanel.add(selectionLabel);
 
         JList<String> optionList = new JList<>(options.toArray(new String[0]));
         if (!isMultiple) optionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -39,6 +46,8 @@ public class ParamsPanel extends JPanel {
         optionList.addMouseListener(mouseListener);
         optionLists.put(param, optionList);
         JScrollPane scrollPane = new JScrollPane(optionList);
+        scrollPane.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
         paramPanel.add(scrollPane);
         return paramPanel;
     }
