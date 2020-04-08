@@ -3,7 +3,7 @@ package edu.cmu.cs.cs214.hw5.framework.core;
 import javax.swing.JPanel;
 
 /**
- * The interface for display plugin
+ * The interface for display plugin which represent the data.
  */
 public interface DisplayPlugin extends Plugin{
 
@@ -20,13 +20,13 @@ public interface DisplayPlugin extends Plugin{
     void setDisplayDataSet(DisplayDataSet data);
 
     /**
-     * Clear the history in display plugin record
+     * Refresh the plugin and clean the existing date in display plugin record
      */
     void clearToDisplay();
 
     /**
-     * Generate a Jpanel for displaying
-     * @return    a Jpanel instance which will be added in GUI frame
+     * Generate a Jpanel object which contains the representation of the data
+     * @return    a Jpanel instance which will be added into the GUI frame
      */
     JPanel display();
 }

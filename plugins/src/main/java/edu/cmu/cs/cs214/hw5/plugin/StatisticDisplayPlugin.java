@@ -6,10 +6,18 @@ import edu.cmu.cs.cs214.hw5.framework.core.DisplayPlugin;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.inference.TTest;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class StatisticDisplayPlugin implements DisplayPlugin {
 
@@ -24,24 +32,23 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
     }
 
     @Override
-    public void setDataSet(DataSet metaData){
+    public void setDataSet(DataSet metaData) {
         this.options = metaData.getData().keySet();
     }
 
     @Override
-    public void setDisplayDataSet(DisplayDataSet data){
+    public void setDisplayDataSet(DisplayDataSet data) {
         this.data = data;
     }
 
     @Override
     public void clearToDisplay() {
-        return;
     }
 
     @Override
     public JPanel display() {
         JPanel panel = new JPanel(new BorderLayout());
-        String[] columnNames = new String[] {"Categories", option1, option2};
+        String[] columnNames = new String[]{"Categories", option1, option2};
         Map<String, Double> map1 = getStatisticData(option1);
         Map<String, Double> map2 = getStatisticData(option2);
         Object[][] rowData = {
@@ -127,8 +134,7 @@ public class StatisticDisplayPlugin implements DisplayPlugin {
 
     private double tTest() {
         Map<String, double[]> map = data.getOriginalData().getData();
-        double res = testEnvir.pairedTTest(map.get(option1), map.get((option2)));
-        return res;
+        return testEnvir.pairedTTest(map.get(option1), map.get((option2)));
     }
 
     private Map<String, Double> getStatisticData(String input) {

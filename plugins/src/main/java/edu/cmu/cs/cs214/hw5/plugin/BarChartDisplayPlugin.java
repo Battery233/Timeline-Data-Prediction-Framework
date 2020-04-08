@@ -6,15 +6,20 @@ import edu.cmu.cs.cs214.hw5.framework.core.DisplayPlugin;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class BarChartDisplayPlugin implements DisplayPlugin {
 
@@ -30,7 +35,6 @@ public class BarChartDisplayPlugin implements DisplayPlugin {
     @Override
     public void setDataSet(DataSet metaData) {
         this.options = metaData.getData().keySet();
-        //toDisplay = new HashMap<>();
     }
 
     @Override
@@ -59,12 +63,7 @@ public class BarChartDisplayPlugin implements DisplayPlugin {
 
         frame = newFrame;
 
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                initFX(fxPanel);
-            }
-        });
+        Platform.runLater(() -> initFX(fxPanel));
 
         JLabel jLabel = new JLabel("Due to the size of window, the result will be showed on a new extended window!");
         panel.add(jLabel);
@@ -82,7 +81,7 @@ public class BarChartDisplayPlugin implements DisplayPlugin {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Category");
-        BarChart<String,Number> barChart = new BarChart<>(xAxis,yAxis);
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
         List<String> list = toDisplay.get("categories");
         for (String s : list) {
             XYChart.Series series = new XYChart.Series();
@@ -91,8 +90,7 @@ public class BarChartDisplayPlugin implements DisplayPlugin {
             barChart.getData().add(series);
         }
 
-        Scene scene  = new Scene(barChart,800,600);
-        return scene;
+        return new Scene(barChart, 800, 600);
     }
 
     @Override
@@ -137,7 +135,8 @@ public class BarChartDisplayPlugin implements DisplayPlugin {
 
     /**
      * Check if the to display data structure is empty.
-     * @return  true or false
+     *
+     * @return true or false
      */
     public boolean isToDisplayEmpty() {
         return toDisplay.size() == 0;
