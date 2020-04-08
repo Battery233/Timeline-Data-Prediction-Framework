@@ -34,9 +34,10 @@ public class TestDataPlugins {
         assertTrue(cdp.addParam("symbols", "CNY"));
         assertTrue(cdp.addParam("symbols", "USD"));
         assertFalse(cdp.addParam("symbol", "JPY"));
+        assertEquals(2,cdp.getParamOptions().size());
+        assertEquals(2,cdp.areParamsMultiple().size());
         assertNotNull(cdp.getData().toString());
         assertEquals(6, cdp.getData().getTimeRange().length);
-
     }
 
     @Test(expected = ParseException.class)
@@ -61,6 +62,9 @@ public class TestDataPlugins {
         assertFalse(stockPriceDataPlugin.setTimePeriod(et, bt));
         assertTrue(stockPriceDataPlugin.setTimePeriod(bt, et));
         assertNotNull(stockPriceDataPlugin.getData());
+        assertEquals(0, stockPriceDataPlugin.getParamOptions().size());
+        assertEquals(0, stockPriceDataPlugin.areParamsMultiple().size());
+        assertFalse(stockPriceDataPlugin.addParam("foo", "bar"));
         assertEquals(34, stockPriceDataPlugin.getData().getTimeRange().length);
     }
 
@@ -85,6 +89,7 @@ public class TestDataPlugins {
         assertTrue(plugin.areParamsMultiple().get("Data Type"));
         assertEquals(1, plugin.getParamOptions().size());
         assertTrue(framework.setPluginParameters(true, params, bt, et));
+        assertTrue(plugin.isDataPlugin());
         assertNotNull(plugin.getData());
         assertEquals(29, plugin.getData().getTimeRange().length);
     }

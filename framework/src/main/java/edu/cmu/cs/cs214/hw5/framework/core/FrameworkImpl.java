@@ -4,16 +4,15 @@ import org.apache.commons.math3.fitting.PolynomialCurveFitter;
 import org.apache.commons.math3.fitting.WeightedObservedPoints;
 
 import javax.swing.JPanel;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FrameworkImpl implements Framework {
-    private static long SECONDS_PER_DAY = 86400000;
     private DataPlugin currentDataPlugin;
     private DisplayPlugin currentDisplayPlugin;
+    //data set get from the data plugin
     private DataSet dataset;
     private StatusChangeListener statusChangeListener;
 
@@ -48,8 +47,11 @@ public class FrameworkImpl implements Framework {
 
     @Override
     public Map<String, Boolean> getAreDataParamsMultiple(boolean isDataPlugin) {
-        if (isDataPlugin) return currentDataPlugin.areParamsMultiple();
-        else return currentDisplayPlugin.areParamsMultiple();
+        if (isDataPlugin) {
+            return currentDataPlugin.areParamsMultiple();
+        } else {
+            return currentDisplayPlugin.areParamsMultiple();
+        }
     }
 
     @Override
@@ -94,13 +96,13 @@ public class FrameworkImpl implements Framework {
         Map<String, Double> prediction = predict(dataset, 3);
         Date[] dates = dataset.getTimeRange();
         Date latestDate = dates[dates.length - 1];
+        long SECONDS_PER_DAY = 86400000;
         Date newDate = new Date(latestDate.getTime() + SECONDS_PER_DAY);
 
         DisplayDataSet displayDataSet = new DisplayDataSet(dataset, newDate, prediction);
         currentDisplayPlugin.setDisplayDataSet(displayDataSet);
 
         return currentDisplayPlugin.display();
-
     }
 
     @Override
@@ -111,10 +113,11 @@ public class FrameworkImpl implements Framework {
     /**
      * Use the existing data to predict a value for the next time(day/ week/ month/ year). We use
      * PolynomialCurveFitter for the prediction.
+     *
      * @param data   the data set extracted from the data plugin
-     * @param degree  the degree of the PolynomialCurveFitter.
-     * @return   A map of the prediction result. The map key is the type of the prediction value and
-     *           the map value is the prediction value which is in a Double format.
+     * @param degree the degree of the PolynomialCurveFitter.
+     * @return A map of the prediction result. The map key is the type of the prediction value and
+     * the map value is the prediction value which is in a Double format.
      */
     public Map<String, Double> predict(DataSet data, int degree) {
         WeightedObservedPoints points = new WeightedObservedPoints();

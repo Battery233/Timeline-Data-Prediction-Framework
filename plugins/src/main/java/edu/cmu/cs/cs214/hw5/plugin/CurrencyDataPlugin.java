@@ -24,8 +24,6 @@ public class CurrencyDataPlugin implements DataPlugin {
     //all type of currencies the API support, according to the official documentation
     private static String ALL_CURRENCY = "CAD,HKD,ISK,PHP,DKK,HUF,CZK,GBP,RON,SEK,IDR,INR,BRL,RUB,HRK,JPY," +
             "THB,CHF,EUR,MYR,BGN,TRY,CNY,NOK,NZD,ZAR,USD,MXN,SGD,AUD,ILS,KRW,PLN";
-    //the base url of the api
-    private static String API_URL = "https://api.exchangeratesapi.io/history?";
     //the map to store all possible params the user can set
     private Map<String, List<String>> paramOptions = new HashMap<>();
     //the map to indicate if the parameter can have multiple values (e.g., several different currencies)
@@ -117,7 +115,6 @@ public class CurrencyDataPlugin implements DataPlugin {
         }
     }
 
-
     @Override
     public DataSet getData() {
         if (startDate.equals("")) {
@@ -126,6 +123,8 @@ public class CurrencyDataPlugin implements DataPlugin {
         } else {
             try {
                 //create the url
+                //the base url of the api
+                String API_URL = "https://api.exchangeratesapi.io/history?";
                 URL url = new URL(API_URL + "start_at=" + startDate + "&end_at=" + endDate + "&base=" + base + "&symbols=" + symbols);
                 System.out.println(url);
                 String content;

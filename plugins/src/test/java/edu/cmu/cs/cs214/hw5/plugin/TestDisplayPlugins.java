@@ -47,7 +47,7 @@ public class TestDisplayPlugins {
         plugin.setDisplayDataSet(displayData);
         String name = plugin.name();
         Assert.assertEquals(name, "Statistic Display Plugin");
-        Assert.assertEquals(plugin.isDataPlugin(), false);
+        Assert.assertFalse(plugin.isDataPlugin());
         Map<String, List<String>> act1 = new HashMap<>();
         List<String> list = new ArrayList<>();
         list.add("RMB");
@@ -66,19 +66,19 @@ public class TestDisplayPlugins {
         boolean expected3 = plugin.addParam("option1", "RMB");
         boolean expected4 = plugin.addParam("option2", "USD");
         boolean expected5 = plugin.addParam("option3", "EUR");
-        Assert.assertEquals(expected3, true);
-        Assert.assertEquals(expected4, true);
-        Assert.assertEquals(expected5, false);
+        Assert.assertTrue(expected3);
+        Assert.assertTrue(expected4);
+        Assert.assertFalse(expected5);
     }
 
     @Test
     public void testLineChartDisplay() {
-        DisplayPlugin plugin = new LineChartDisplayPlugin();
+        LineChartDisplayPlugin plugin = new LineChartDisplayPlugin();
         plugin.setDataSet(data);
         plugin.setDisplayDataSet(displayData);
         String name = plugin.name();
         Assert.assertEquals(name, "Line Chart Display Plugin");
-        Assert.assertEquals(plugin.isDataPlugin(), false);
+        Assert.assertFalse(plugin.isDataPlugin());
         Map<String, List<String>> act1 = new HashMap<>();
         List<String> list = new ArrayList<>();
         list.add("RMB");
@@ -95,24 +95,23 @@ public class TestDisplayPlugins {
         boolean expected3 = plugin.addParam("toAdd", "RMB");
         boolean expected4 = plugin.addParam("toAdd", "USD");
         boolean expected5 = plugin.addParam("Wrong", "EUR");
-        Assert.assertEquals(expected3, true);
-        Assert.assertEquals(expected4, true);
-        Assert.assertEquals(expected5, false);
+        Assert.assertTrue(expected3);
+        Assert.assertTrue(expected4);
+        Assert.assertFalse(expected5);
 
         plugin.clearToDisplay();
-        LineChartDisplayPlugin lineChart = (LineChartDisplayPlugin) plugin;
-        boolean expected7 = lineChart.isToDisplayEmpty();
+        boolean expected7 = plugin.isToDisplayEmpty();
         Assert.assertTrue(expected7);
     }
 
     @Test
     public void testBarChartDisplay() {
-        DisplayPlugin plugin = new BarChartDisplayPlugin();
+        BarChartDisplayPlugin plugin = new BarChartDisplayPlugin();
         plugin.setDataSet(data);
         plugin.setDisplayDataSet(displayData);
         String name = plugin.name();
         Assert.assertEquals(name, "Bar Chart Display Plugin");
-        Assert.assertEquals(plugin.isDataPlugin(), false);
+        Assert.assertFalse(plugin.isDataPlugin());
         Map<String, List<String>> act1 = new HashMap<>();
         List<String> list = new ArrayList<>();
         list.add("RMB");
@@ -129,13 +128,12 @@ public class TestDisplayPlugins {
         boolean expected3 = plugin.addParam("categories", "RMB");
         boolean expected4 = plugin.addParam("categories", "USD");
         boolean expected5 = plugin.addParam("Error", "EUR");
-        Assert.assertEquals(expected3, true);
-        Assert.assertEquals(expected4, true);
-        Assert.assertEquals(expected5, false);
+        Assert.assertTrue(expected3);
+        Assert.assertTrue(expected4);
+        Assert.assertFalse(expected5);
 
         plugin.clearToDisplay();
-        BarChartDisplayPlugin barChart = (BarChartDisplayPlugin) plugin;
-        boolean expected7 = barChart.isToDisplayEmpty();
+        boolean expected7 = plugin.isToDisplayEmpty();
         Assert.assertTrue(expected7);
     }
 }
