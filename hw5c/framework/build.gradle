@@ -1,0 +1,71 @@
+apply plugin: 'maven'
+//apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
+
+test.testLogging {
+    exceptionFormat "full"
+    events "failed", "passed", "skipped"
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.ow2.asm:asm:6.2.1'
+        forcedModules = [ 'org.ow2.asm:asm:6.2.1' ]
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+checkstyle {
+    ignoreFailures = true
+    toolVersion = "8.24"
+    config = resources.text.fromFile('../config/checkstyle/checkstyle.xml')
+    sourceSets = [sourceSets.main]
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.9'
+    }
+}
+
+apply plugin: 'com.github.spotbugs'
+
+spotbugs {
+    toolVersion = '3.1.8'
+}
+
+// To generate an HTML report instead of XML
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    reports.xml.enabled = false
+    reports.html.enabled = true
+    ignoreFailures = true
+}
+
+jacoco {
+    toolVersion = "0.8.2"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/reports/coverage")
+    }
+}
+
