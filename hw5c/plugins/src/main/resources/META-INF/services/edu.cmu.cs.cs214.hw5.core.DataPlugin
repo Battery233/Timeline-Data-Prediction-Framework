@@ -1,3 +1,4 @@
 edu.cmu.cs.cs214.hw5.plugins.data.CSVDataPlugin
 edu.cmu.cs.cs214.hw5.plugins.data.YahooFinanceWebAPIPlugin
 edu.cmu.cs.cs214.hw5.plugins.data.CurrencyRateWebAPIPlugin
+edu.cmu.cs.cs214.hw5.plugins.data.AdvancedDailyStockDataPlugin
