@@ -7,8 +7,10 @@ import edu.cmu.cs.cs214.hw5.core.datastructures.TimeSeries;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -18,7 +20,7 @@ import java.util.List;
 
 public class AdvancedDailyStockDataPlugin implements DataPlugin {
     public static final String SOURCE_NAME = "Advanced Daily Stock Historical Data";
-    public static final String PROMPT = "Enter Stock Code";
+    public static final String PROMPT = "Enter Stock Code (e.g. AAPL for Apple)";
 
     @Override
     public List<String> getAvailableDataSetNames() {
@@ -31,16 +33,32 @@ public class AdvancedDailyStockDataPlugin implements DataPlugin {
         TimeSeries ts2 = new TimeSeries(dataSetName + " daily highest price");
         TimeSeries ts3 = new TimeSeries(dataSetName + " daily lowest price");
         TimeSeries ts4 = new TimeSeries(dataSetName + " close price");
-        String urlString = "https://eodhistoricaldata.com/api/eod/" + dataSetName + "?api_token=OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX";
+        String urlString;
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/API-KEY/AdvancedDailyStockDataPlugin.txt"));) {
+            urlString = "https://eodhistoricaldata.com/api/eod/" + dataSetName + "?api_token=" + br.readLine().trim();
+        } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(new JFrame(), "Read API key file error!");
+            return DataSet.EMPTY_DATASET;
+        }
         URL url;
+        JOptionPane.showMessageDialog(new JFrame(),
+                "Downloading...This may take up to 10 seconds, depending on the bandwidth.");
         try {
             url = new URL(urlString);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(new JFrame(), "Load URL error!");
+            return DataSet.EMPTY_DATASET;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8))) {
             String s = reader.readLine();
             boolean exist = false;
             int counter = 0;
             while ((s = reader.readLine()) != null) {
                 try {
+                    //read data and put data into the object
                     String[] details = s.split(",");
                     LocalDate date = LocalDate.parse(details[0]);
                     exist = true;
@@ -69,7 +87,9 @@ public class AdvancedDailyStockDataPlugin implements DataPlugin {
             return new DataSet(tsList, new ArrayList<>(), dataSetName + " detailed stock price");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(new JFrame(),
-                    dataSetName + ": stock data does not exist!");
+                    dataSetName + ": stock data does not exist!\n" +
+                            "Did you input the right symbol?\n" +
+                            "Did you set up the API key correctly?");
             return DataSet.EMPTY_DATASET;
         }
     }
