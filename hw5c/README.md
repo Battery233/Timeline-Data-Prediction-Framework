@@ -4,7 +4,7 @@ Use **gradle run** command to execute the program.
 
 ## Data Plugins
 
-### Currency Rate Plugin
+### Currency Rate Data Plugin
 This plugin requires input of three-character currency code of any country as the base currency. 
 
 ### Advanced Daily Stock Data Plugin 
@@ -16,5 +16,16 @@ This plugin requires an API key from www.quandl.com. You need to input the API k
 
 ## Display Plugins
 
-### Chart Matrix Plugin
+### Chart Matrix Display Plugin
+This a plugin for displaying TimeSeries.  
+This plugin displays each time series data as a line chart. Together combine multiple of them as a chart matrix.
+
+### Bar Chart Display Plugin
+This a plugin for displaying TimePoint.  
+This plugin displays multiple time point data on the same bar chart.
+
+### Pie Chart Display Plugin
+This a plugin for displaying TimePoint.  
+This plugin displays multiple time point data on the same pie chart.
+
 
