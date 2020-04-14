@@ -13,7 +13,7 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.List;
 
-public class ChartMatrixPlugin implements DisplayPlugin {
+public class ChartMatrixDisplayPlugin implements DisplayPlugin {
     @Override
     public String getChartTypeName() {
         return "Chart Matrix";
@@ -26,7 +26,7 @@ public class ChartMatrixPlugin implements DisplayPlugin {
 
     @Override
     public JPanel getEmptyChart() {
-        return new XChartPanel<>(getEmptyChartHelper());
+        return new XChartPanel<>(getEmptyChartHelper("Untitled Chart"));
     }
 
     @Override
@@ -39,10 +39,10 @@ public class ChartMatrixPlugin implements DisplayPlugin {
         return null;
     }
 
-    private XYChart getEmptyChartHelper(){
+    private XYChart getEmptyChartHelper(String title){
         // Create Chart
         XYChart chart = new XYChartBuilder().width(800).height(600).title(getClass().getSimpleName())
-                .xAxisTitle("Time").yAxisTitle("Untitled Chart").build();
+                .xAxisTitle("Time").yAxisTitle(title).build();
 
         // Customize Chart
         chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
@@ -69,7 +69,7 @@ public class ChartMatrixPlugin implements DisplayPlugin {
     }
 
     private JPanel getChartHelper(TimeSeries ts){
-        XYChart chart = getEmptyChartHelper();
+        XYChart chart = getEmptyChartHelper(ts.getName());
         Set<LocalDate> timeSpan = ts.getTimeSpan();
         List<Date> xTimes = new ArrayList<>();
         List<Double> yData = new ArrayList<>();

@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
-public class CurrencyRatePlugin implements DataPlugin {
+public class CurrencyRateDataPlugin implements DataPlugin {
     public static final String SOURCE_NAME = "Foreign Exchange Rates with Currency Conversion";
     public static final String PROMPT = "Enter base currency";
     private final String API_URL_FORMAT =
