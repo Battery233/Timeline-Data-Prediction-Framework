@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FREDDataPlugin implements DataPlugin {
+public class FredDataPlugin implements DataPlugin {
     public static final String SOURCE_NAME = "Federal Reserve Historical Economic Data";
     public static final String PROMPT = "Input your Quandl.com API key here!";
 
