@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -14,8 +15,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
-public class CurrencyRateWebAPIPlugin implements DataPlugin {
-    public static final String SOURCE_NAME = "Foreign Exchange Rates API with currency conversion";
+public class CurrencyRatePlugin implements DataPlugin {
+    public static final String SOURCE_NAME = "Foreign Exchange Rates with Currency Conversion";
     public static final String PROMPT = "Enter base currency";
     private final String API_URL_FORMAT =
             "https://api.exchangeratesapi.io/history?start_at=%s&end_at=%s&base=%s";
@@ -68,6 +69,8 @@ public class CurrencyRateWebAPIPlugin implements DataPlugin {
                 }
             }
         } catch (IOException | ParseException e) {
+            JOptionPane.showMessageDialog(new JFrame(),
+                    "Fetching data error!\nDid you enter a valid currency code?");
             e.printStackTrace();
         }
         List<TimeSeries> tsList = new ArrayList<>(tsMap.values());
