@@ -2,8 +2,19 @@
 
 Use **gradle run** command to execute the program.
 
-Two of our data plugins need API keys to run.
+## Data Plugins
 
-The Advanced Daily Stock Data Plugin requires an API key from www.eodhistoricaldata.com and you can have up to 20 API requests every day with a free account. Replace the content of AdvancedDailyStockDataPlugin.txt under the hw5c/src/main/resources/API-KEY/ with your own API key.
+### Currency Rate Plugin
+This plugin requires input of three-character currency code of any country as the base currency. 
 
-The Federal Reserve Historical Economic Data plugin requires an API key from www.quandl.com and you need to input the API key to the pop up window when you run the plugin.
+### Advanced Daily Stock Data Plugin 
+This plugin requires an API key from www.eodhistoricaldata.com. You can have up to 20 API requests every day with a free account. Replace the content of AdvancedDailyStockDataPlugin.txt under the hw5c/src/main/resources/API-KEY/ with your own API key.  
+This plugin requires an input of stock code.
+
+### Federal Reserve Historical Economic Data plugin 
+This plugin requires an API key from www.quandl.com. You need to input the API key to the pop up window when you run the plugin.
+
+## Display Plugins
+
+### Chart Matrix Plugin
+
